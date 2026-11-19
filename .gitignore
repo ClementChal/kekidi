@@ -6,6 +6,7 @@ wp-config.php
 wp-config-local.php
 
 # Archives générées et sauvegardes locales
+/dist/
 *.zip
 **/backups/
 *.sql

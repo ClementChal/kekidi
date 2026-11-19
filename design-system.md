@@ -7,13 +7,13 @@ Ce guide complète [DESIGN.md](DESIGN.md), référence de l’identité, de la p
 | Ressource du dépôt | Responsabilité |
 | --- | --- |
 | [DESIGN.md](DESIGN.md) | Invariants visuels et valeurs par défaut |
-| [assets/kekidi.css](assets/kekidi.css) | Tokens, composants, responsive et états partagés |
-| [build-wordpress.ts](build-wordpress.ts) | Génération des modèles, compositions, palette et adaptations WordPress |
-| [theme.json](wordpress/kekidi/theme.json) | Palette et polices installables, générées depuis le script |
+| [functions.php](wordpress/kekidi/functions.php) | Chargement des ressources et intégration du thème |
+| [Modèles](wordpress/kekidi/templates/) et [compositions](wordpress/kekidi/patterns/) | Structure des pages et contenus réutilisables, directement modifiables |
+| [theme.json](wordpress/kekidi/theme.json) | Palette, polices et réglages du thème, directement modifiables |
 | [style.css](wordpress/kekidi/style.css) | Styles effectivement livrés, avec adaptations finales |
 | [design-tokens.json](design-tokens.json) | Inventaire documentaire des 42 variables CSS de base |
 | [brand-spec.md](brand-spec.md) | Posture de marque et règles éditoriales |
-| [questions.json](questions.json) | Trois réponses initiales pour l’export ; pas le contenu courant de la base |
+| [reponses-kekidi.xml](wordpress/reponses-kekidi.xml) | Trois réponses initiales à importer ; pas le contenu courant de la base |
 | [Contact](wordpress/kekidi-contact/README.md), [Quiz](wordpress/kekidi-quiz/README.md), [Scrutins](wordpress/kekidi-scrutins/README.md) | Contrats des fonctionnalités et tests |
 
 Le CSS contient des surcharges successives ; conserver leur ordre. Pour connaître une valeur effective, lire la dernière règle applicable et les adaptations du thème, pas uniquement la déclaration initiale. Le JSON de tokens et le frontmatter de DESIGN.md ne sont pas des feuilles de style chargées à l’exécution.
@@ -30,7 +30,7 @@ Les valeurs exactes de palette, polices, espacements et rayons sont dans DESIGN.
 
 `--color-base-100/200/300` correspondent à papier/blanc/jaune ; `--color-base-content` et `--color-primary-content` à l’encre ; `--color-primary` au rose ; `--color-neutral` à l’encre. Malgré ce nom de bibliothèque, le bouton de navigation principal est **menthe**, car son composant possède une surcharge explicite. Une validation de quiz/contact reste rose.
 
-Le thème reçoit les styles partagés dans sa feuille principale. Le générateur remplace les sélecteurs de boutons statiques par les classes natives WordPress. La variable `--surface` du quiz possède une adaptation locale pour conserver son blanc de référence. Ne pas enlever cette adaptation en remplaçant le composant par une classe générique de bibliothèque.
+La feuille principale du thème contient les styles communs et les adaptations WordPress. Les boutons sont ciblés par leurs classes natives WordPress. La variable `--surface` du quiz possède une adaptation locale pour conserver son blanc de référence. Ne pas enlever cette adaptation en remplaçant le composant par une classe générique de bibliothèque.
 
 Les fichiers Nunito 800 et DM Sans 400/600 et leurs licences sont locaux. La pile monospace est déclarée pour les données techniques éventuelles ; elle ne devient pas une police de lecture.
 
@@ -158,7 +158,7 @@ Ces distinctions évitent de supprimer une fonctionnalité actuelle au nom d’u
 
 ## 10. Maintenance et recette
 
-Modifier les tokens et composants partagés dans `assets/kekidi.css`, les adaptations WordPress dans `build-wordpress.ts`, les comportements dans leurs extensions. Puis régénérer le thème et les archives. Une modification limitée aux fichiers générés peut être écrasée. Synchroniser DESIGN.md, l’inventaire des tokens et ce guide lorsque les valeurs changent.
+Modifier directement le thème dans `wordpress/kekidi/` : `style.css` pour les styles, `theme.json` pour la palette et les polices, `templates/`, `parts/` et `patterns/` pour les blocs. Les comportements restent dans leurs extensions. Constituer les archives avec WP-CLI et les vérifier avant installation. Synchroniser DESIGN.md, l’inventaire des tokens et ce guide lorsque les valeurs changent.
 
 Les personnalisations de modèles, parties et styles enregistrées dans l’Éditeur de site vivent en base et peuvent primer sur les fichiers. Les récupérer et préserver le travail éditorial avant modification. Ne pas présenter un ZIP ou un export XML comme une sauvegarde complète du site.
 

@@ -5,7 +5,7 @@ Messages : **Forminator → Soumissions → Contact Kekidi**.
 
 ## Ce que fait chaque élément
 
-- **Thème Kekidi 1.3.1** : modèle Contact, en-tête, footer et styles conformes à OpenDesign.
+- **Thème Kekidi 1.4.0** : modèle Contact, en-tête, footer et styles définis dans le design system du projet.
 - **Forminator** : champs, validation serveur, protection honeypot, enregistrement et consultation des messages. Version testée : **1.58.4**. Aucun compte externe nécessaire pour ce formulaire.
 - **Kekidi — Contact 2.0.0** : crée une seule fois le formulaire **Contact Kekidi**, supprime sa notification e-mail par défaut, retire l’IP des données du message et adapte ses états au design.
 
@@ -19,8 +19,8 @@ Les messages Forminator sont conservés dans ses propres tables, indépendamment
 
 1. Sauvegarder les fichiers et la base de production. S’il existe des messages Jetpack, les exporter avant de supprimer Jetpack.
 2. Installer et activer **Forminator**, par **WPMU DEV**, depuis **Extensions → Ajouter une extension**. Aucune connexion WPMU DEV ni offre payante nécessaire pour ce formulaire.
-3. Téléverser `extensions/kekidi-contact.zip` et choisir **Remplacer l’extension actuelle par l’extension téléversée**. Vérifier que **Kekidi — Contact 2.0.0** est actif. Cette version dépend de Forminator, plus de Jetpack.
-4. Téléverser `themes/kekidi-theme.zip` et remplacer le thème existant. Vérifier **Kekidi 1.3.1**.
+3. Téléverser `dist/kekidi-contact-2.0.0.zip` et choisir **Remplacer l’extension actuelle par l’extension téléversée**. Vérifier que **Kekidi — Contact 2.0.0** est actif. Cette version dépend de Forminator, plus de Jetpack.
+4. Téléverser `dist/kekidi-1.4.0.zip` et remplacer le thème existant. Adapter ces noms aux versions livrées.
 5. Modifier la page **Contact** existante pour conserver `/contact/`. Choisir le modèle **Contact Kekidi**. Si elle est vide, insérer **+ → Compositions → Kekidi → Page Contact Kekidi**. Si elle contient l’ancien formulaire Jetpack, retirer uniquement ce formulaire et insérer le bloc **Forminator** en sélectionnant **Contact Kekidi** ; conserver l’introduction déjà saisie.
 6. Prévisualiser, puis publier ou mettre à jour la page. Purger le cache et envoyer un message depuis une fenêtre privée.
 7. Vérifier sa présence dans **Forminator → Soumissions**, formulaire **Contact Kekidi**.
@@ -46,6 +46,6 @@ Contrôles reproductibles :
 - `node wordpress/kekidi-contact/tests/browser.mjs` avec Chromium de test sur 9223 et Studio sur 8881. Ce test crée un message reconnaissable au préfixe `KEKIDI-FORMINATOR-TEST :`.
 - Studio WP-CLI : `eval-file …/kekidi-contact/tests/wordpress.php --user=admin` après le test navigateur. Pour contrôler l’absence d’e-mails sans risque, un filtre temporaire `pre_wp_mail` doit bloquer et compter les appels dans l’option `kekidi_test_mail_calls`.
 
-Backups avant migration : `themes/backups/avant-forminator-20261112-115736/` (extension, CSS et base locale). Les anciens ZIP sont également sauvegardés dans les sous-dossiers `backups` à chaque création d’archive.
+Conserver les archives publiées dans les Releases et effectuer une sauvegarde des fichiers et de la base avant mise à jour. La commande de distribution ne sauvegarde pas automatiquement les ZIP précédents ; les noms versionnés permettent de conserver chaque livraison.
 
 À vérifier après déploiement : réception sur InfinityFree, cache et protection antispam en conditions réelles. Les tests locaux ne couvrent pas Safari ni un téléphone physique. Le honeypot n’empêche pas tous les spams. Les textes de confidentialité et la durée de conservation des messages restent à définir pour le site public.

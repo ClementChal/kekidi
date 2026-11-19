@@ -82,7 +82,7 @@ Cette référence est autonome : aucune application de maquette ni aucun dossier
 - [design-system.md](design-system.md) : anatomie, états, responsive, accessibilité et maintenance.
 - [design-tokens.json](design-tokens.json) : inventaire des variables CSS partagées.
 - [brand-spec.md](brand-spec.md) : identité et ton de marque.
-- [assets/kekidi.css](assets/kekidi.css) et [build-wordpress.ts](build-wordpress.ts) : styles communs et adaptations WordPress.
+- [style.css](wordpress/kekidi/style.css) : styles communs, états et adaptations WordPress ; [functions.php](wordpress/kekidi/functions.php) : chargement des ressources et intégration du thème.
 - [theme.json](wordpress/kekidi/theme.json) : palette et polices exposées dans Gutenberg.
 
 ## Colors
@@ -100,11 +100,11 @@ Cette référence est autonome : aucune application de maquette ni aucun dossier
 
 La couleur dépend du composant : le jaune ne signifie pas systématiquement une alerte. Les badges alternent jaune, menthe et ciel sans correspondance métier. Dans les graphiques, **pour = menthe, contre = rose, abstention = ciel**. Les textes et contours complètent toujours les couleurs.
 
-Les slugs WordPress sont `cream`, `white`, `ink`, `pink`, `green`, `yellow`, `blue`. Les variables de présentation suivent les préréglages de couleur et de police de l’Éditeur de site. Toute évolution maintient leur correspondance avec le générateur et les documents.
+Les slugs WordPress sont `cream`, `white`, `ink`, `pink`, `green`, `yellow`, `blue`. Les variables de présentation suivent les préréglages de couleur et de police de l’Éditeur de site. Toute évolution maintient leur correspondance entre `theme.json`, les styles et les documents.
 
 ## Typography
 
-Nunito 800 pour marque, titres et réponse courte. DM Sans 400 pour la lecture ; DM Sans 600 pour actions et labels. Les polices et licences restent locales dans `assets/`, avec `font-display:swap`. Fallbacks CSS : `Trebuchet MS` pour Nunito, `Verdana` pour DM Sans, puis `sans-serif`.
+Nunito 800 pour marque, titres et réponse courte. DM Sans 400 pour la lecture ; DM Sans 600 pour actions et labels. Les polices et licences restent locales dans `wordpress/kekidi/assets/`, avec `font-display:swap`. Fallbacks CSS : `Trebuchet MS` pour Nunito, `Verdana` pour DM Sans, puis `sans-serif`.
 
 | Rôle effectif | Taille et interligne |
 | --- | --- |
@@ -199,7 +199,7 @@ Transitions de 140–240 ms avec `cubic-bezier(.23,1,.32,1)`. `prefers-reduced-m
 - Préserver les trois liens de navigation sur mobile et les retours naturels des titres.
 - Utiliser des blocs éditables et un seul H1 par page.
 - Vérifier clavier, focus, noms accessibles, absence de débordement à 320/390/1440 px et réduction des mouvements.
-- Actualiser ensemble générateur, styles, tokens et documents lors d’une évolution de règle.
+- Actualiser ensemble `theme.json`, styles, tokens et documents lors d’une évolution de règle.
 
 ### À éviter
 
@@ -207,4 +207,4 @@ Transitions de 140–240 ms avec `cubic-bezier(.23,1,.32,1)`. `prefers-reduced-m
 - Confondre catégorie, action et résultat juste/faux à travers leur couleur.
 - Faire dépendre une règle d’une application de maquette ou d’un chemin personnel.
 - Réintroduire un envoi simulé pour le contact ou supprimer les comportements WordPress actuels pour imiter une ancienne démonstration.
-- Modifier uniquement les fichiers générés ou considérer le XML comme une sauvegarde des personnalisations de l’Éditeur de site.
+- Modifier uniquement le thème installé sans reporter le changement dans le dépôt, ou considérer le XML comme une sauvegarde des personnalisations de l’Éditeur de site.

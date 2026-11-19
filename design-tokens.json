@@ -1,7 +1,7 @@
 {
   "name": "Kekidi?!",
   "version": 1,
-  "source": "assets/kekidi.css",
+  "source": "wordpress/kekidi/style.css",
   "scope": ":root, [data-theme=kekidi]",
   "tokens": {
     "--bg": "oklch(from #FFF8F0 l c h)",

@@ -9,16 +9,12 @@ if ( ! $posts ) {
 $home_id = (int) get_option( 'page_on_front' );
 $home_page = get_post( $home_id );
 $front_template = file_get_contents( get_theme_file_path( 'templates/front-page.html' ) );
-if ( 'page' !== get_option( 'show_on_front' ) || ! $home_page || ! str_contains( $front_template, 'wp:post-content' ) ) {
-    WP_CLI::error( 'La page Accueil doit être la page statique et le modèle doit afficher son contenu.' );
+if ( 'page' !== get_option( 'show_on_front' ) || ! $home_page || ! has_block( 'core/pattern', $front_template ) || false === strpos( $front_template, '"slug":"kekidi/accueil"' ) ) {
+    WP_CLI::error( 'La page Accueil doit être statique et son modèle doit afficher la composition kekidi/accueil.' );
 }
-$home_blocks = parse_blocks( $home_page->post_content );
-$locked_sections = array_filter( $home_blocks, static function ( array $block ): bool {
-    return 'core/group' === $block['blockName'] && 'contentOnly' === ( $block['attrs']['templateLock'] ?? null );
-} );
 $editor_role = get_role( 'editor' );
-if ( 4 !== count( $locked_sections ) || ! $editor_role->has_cap( 'edit_pages' ) || $editor_role->has_cap( 'edit_theme_options' ) ) {
-    WP_CLI::error( 'La page doit avoir quatre sections en édition de contenu seul et être modifiable par un Éditeur sans droit de modifier les modèles.' );
+if ( ! $editor_role || ! $editor_role->has_cap( 'edit_pages' ) || $editor_role->has_cap( 'edit_theme_options' ) ) {
+    WP_CLI::error( 'Le rôle Éditeur doit pouvoir modifier les pages sans droit de modifier les modèles.' );
 }
 
 $home = do_blocks( '<!-- wp:pattern {"slug":"kekidi/accueil"} /-->' );
@@ -50,4 +46,4 @@ foreach ( $posts as $index => $post ) {
     }
 }
 wp_reset_postdata();
-WP_CLI::success( 'Accueil modifiable (4 sections verrouillées), droits Éditeur, cartes et navigation vérifiés.' );
+WP_CLI::success( 'Accueil statique et composition du thème, droits Éditeur, cartes et navigation vérifiés.' );

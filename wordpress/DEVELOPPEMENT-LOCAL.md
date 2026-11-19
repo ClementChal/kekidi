@@ -1,51 +1,36 @@
 # Développer Kekidi avec WordPress Studio
 
-L'environnement de référence est le site **Kekidi** dans Studio :
+## Sources
 
-- Site : `http://localhost:8881`
-- Administration : `http://localhost:8881/wp-admin/`
-- Dossier de l'installation : `<DOSSIER_SITE_STUDIO>`
-- Connexion Codex : MCP `wordpress-studio`.
+Le thème se maintient directement dans `wordpress/kekidi/` : `style.css`, `theme.json`, `functions.php`, `templates/`, `parts/`, `patterns/` et `assets/`. Les quatre extensions possèdent leurs propres dossiers `wordpress/kekidi-*`. Aucun générateur de thème ni script Python n’est requis.
 
-Le thème Kekidi utilise le modèle `front-page.html` de la version 1.1.3 comme base stable : ce modèle affiche le motif `kekidi/accueil` du thème, sans lire le contenu de la page **Accueil**. Les trois réponses sont importées et les contenus d'exemple WordPress sont en brouillon. Les permaliens utilisent `/reponses/%postname%/`. L'environnement Studio utilise SQLite ; le contenu public sur InfinityFree reste indépendant.
+Lire [DESIGN.md](../DESIGN.md) avant de modifier la présentation. Les contenus éditoriaux, réglages, messages et instantanés de scrutins restent en base ; ne pas les remplacer pour tester une modification de code.
 
-## Modifier et vérifier
+## Préparer l’environnement
 
-Le code source du thème reste dans `build-wordpress.ts`. Les styles de référence restent dans `assets/kekidi.css`. Ne pas modifier la maquette pour l'adapter à un défaut WordPress : le thème doit reproduire son rendu. Le générateur reprend les styles de la maquette dans la feuille principale du thème et adapte seulement les conteneurs WordPress.
+Créer ou sélectionner un site Studio dédié aux tests. Studio fournit PHP et WP-CLI ; l’outil système `zip` doit être installé. Avec WP-CLI 2.12, installer le package `wp-cli/dist-archive-command:3.1.0`. Node 24 sert aux tests JavaScript. La configuration complète est décrite dans le [README](../README.md).
 
-Après une correction, depuis le dossier du projet :
+## Modifier, empaqueter, installer
 
-```sh
-node build-wordpress.ts
-uv run --no-project python package-wordpress.py
-```
+1. Modifier les fichiers sources et augmenter la version dans `kekidi/style.css` ou le fichier PHP principal de l’extension concernée.
+2. Constituer les ZIP avec `dist-archive`, selon les commandes du README. Les livraisons sont dans `dist/`, avec leur version dans le nom ; ne pas écraser une archive publiée.
+3. Exécuter `eval-file /CHEMIN_DEPOT/wordpress/tests/distribution.php` avec l’outil Studio `wp_cli` sur le site de test. Les cinq ZIP doivent correspondre aux versions des sources.
+4. Installer les ZIP concernés avec remplacement, par l’administration ou l’outil `wp_cli` :
 
-L'agent utilise ensuite le **MCP Studio**, outil `wp_cli`, sur le site `Kekidi`, pour installer localement le ZIP régénéré avec remplacement de la version existante :
+   ```text
+   theme install /CHEMIN_DEPOT/dist/kekidi-1.4.0.zip --force --activate
+   ```
 
-```text
-theme install <CHEMIN_PROJET>/wordpress/themes/kekidi-theme.zip --force --activate
-```
+5. Exécuter les tests adaptés et vérifier dans l’éditeur et le navigateur. Valider les blocs modifiés avec `validate_blocks` avant publication.
 
-Le dossier généré du projet et celui installé dans Studio sont deux copies distinctes. Une régénération ne met donc pas Studio à jour automatiquement : réinstaller le ZIP local après les modifications. Ne pas réimporter les réponses à chaque correction du thème.
+Le dépôt et le site installé sont distincts : une modification de fichier dans le dépôt ne met pas automatiquement Studio à jour. Ne pas réimporter le XML à chaque correction du thème.
 
-Si le code des blocs change, valider les fichiers et compositions concernés avec l'outil MCP `validate_blocks`. Puis comparer les pages rendues aux fichiers HTML Open Design avec `inspect_design` et les captures sur ordinateur et mobile. Les fichiers HTML statiques et leurs styles doivent rester inchangés pendant cette comparaison.
+## Préserver l’édition de contenu
 
-Le test d'intégration se lance via `wp_cli`. Il contrôle la page d'accueil statique, les quatre sections éditables en contenu uniquement, les droits du rôle Éditeur, l'ordre des cartes, leurs liens uniques et la navigation cyclique :
+Les changements de modèles, parties et styles faits dans l’Éditeur de site peuvent primer sur les fichiers du thème. Vérifier les personnalisations `wp_template` et `wp_template_part` avant une correction ; exporter et intégrer les changements utiles aux sources sans perdre les autres modifications éditoriales.
 
-```text
-eval-file <CHEMIN_PROJET>/wordpress/verify-theme.php
-```
+## Livrer
 
-Le rapport `verification-visuelle.json` conserve les résultats de comparaison de la maquette et du site Studio.
+Après validation, sauvegarder la base et les fichiers du site cible puis remplacer les seuls ZIP concernés. Conserver les versions précédentes dans les Releases et une sauvegarde complète séparée. La commande d’archives n’effectue ni sauvegarde de site ni déploiement.
 
-Les modifications effectuées dans **Apparence → Éditeur** vivent dans la base locale. Elles ne sont pas automatiquement récupérées par notre générateur et peuvent prendre le pas sur les fichiers du thème. Avant de modifier un modèle, vérifier les personnalisations `wp_template` et `wp_template_part` et préserver le travail éditorial existant.
-
-## Mettre à jour le site public
-
-Après validation locale, choisir la page **Accueil** comme page d'accueil dans **Réglages → Lecture**. Le modèle `front-page.html` rend lui-même le motif `kekidi/accueil` ; le contenu de la page ne doit pas être remplacé par un bloc de réponse. Sauvegarder le thème précédent et la base, puis installer le nouveau `wordpress/themes/kekidi-theme.zip` dans l'administration du site public en remplaçant le thème existant. Les anciennes archives sont rangées dans `wordpress/themes/backups/`. Augmenter la version du thème dans le générateur à chaque livraison pour renouveler les styles en cache.
-
-Ne pas remplacer la base publique par celle de Studio, et ne pas réimporter le XML à chaque mise à jour du thème. Les contenus éditoriaux publics restent conservés. La synchronisation WordPress.com de Studio ne publie pas chez InfinityFree.
-
-## Ancienne pile Docker
-
-Le fichier Compose historique n’est pas repris dans cette copie. Utiliser un site Studio distinct pour tester cette copie ; consulter le README à la racine avant toute installation.
+Les anciens ZIP et dossiers de backups locaux restent conservés. Les tests navigateur contiennent des URL et identifiants fixes : les adapter au site choisi. Exécuter aussi `eval-file /CHEMIN_DEPOT/wordpress/verify-theme.php` pour l’accueil, les cartes, les droits et la navigation.

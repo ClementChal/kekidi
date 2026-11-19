@@ -47,4 +47,4 @@ Tests PHP via le `wp_cli` de Studio, avec `eval-file <chemin>/tests/data.php` et
 
 `tests/browser.mjs` teste les exemples Studio à 1440, 390 et 320 px avec Chromium CDP sur le port 9223 : validation vide, résultat exact, rechargement, liens protégés, sigle de secours et import Gutenberg sans mutation du publié. Adapter les identifiants si les exemples sont recréés ailleurs.
 
-La compatibilité réseau avec InfinityFree reste à vérifier avant livraison. Un refus d’import conserve les données existantes. Aucune archive n’a été produite pendant cette phase locale.
+La compatibilité réseau avec l’hébergement cible reste à vérifier avant livraison. Un refus d’import conserve les données existantes. Livrer le thème et `dist/kekidi-scrutins-1.0.1.zip` avec leurs versions correspondantes, selon la procédure du README à la racine.

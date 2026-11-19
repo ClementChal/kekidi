@@ -1,0 +1,11 @@
+/.distignore
+/.git
+/.gitignore
+/.env
+/.env.*
+/tests/
+/node_modules/
+/backups/
+/README.md
+*.log
+*.zip

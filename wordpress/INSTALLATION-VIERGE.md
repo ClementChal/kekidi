@@ -1,6 +1,6 @@
 # Installation sur un WordPress vierge
 
-Procédure vérifiée le 19 novembre 2026 avec la copie autonome `kekidi-wordpress`, sans importer la base ni les médias de l'ancien site.
+Procédure vérifiée le 19 novembre 2026 sur un site Studio neuf. Le code se livre sous forme de ZIP versionnés ; la base et les médias sont propres au site installé.
 
 ## Environnement et dépendances testés
 
@@ -22,11 +22,11 @@ Les versions tierces ci-dessus décrivent le test effectué. Elles ne garantisse
 ## Installation manuelle dans Studio
 
 1. Créer un nouveau site vide, dans son propre dossier. Ne pas importer une sauvegarde de l'ancien site.
-2. Depuis la racine du dépôt, lancer `node build-wordpress.ts`, puis `uv run --no-project python package-wordpress.py`.
-3. Dans l'administration du nouveau site, téléverser `wordpress/themes/kekidi-theme.zip` depuis **Apparence → Thèmes**, puis l'activer.
+2. Constituer les archives avec WP-CLI et vérifier leur contenu selon [Produire une livraison](../README.md#produire-une-livraison). Le thème est directement maintenu, sans étape de génération.
+3. Dans l'administration du nouveau site, téléverser `dist/kekidi-1.4.0.zip` depuis **Apparence → Thèmes**, puis l'activer. Adapter le numéro à la version livrée.
 4. Installer et activer Forminator, par WPMU DEV. Pour reproduire exactement le test, utiliser la version 1.58.4 du répertoire WordPress.org.
-5. Installer et activer les ZIP `wordpress/extensions/kekidi-contact.zip`, `kekidi-quiz.zip` et `kekidi-scrutins.zip`. Activer Forminator avant Kekidi Contact.
-6. Facultatif : installer Koko Analytics et `kekidi-super-editeur.zip` pour les statistiques et le rôle Super éditeur.
+5. Installer et activer les ZIP `dist/kekidi-contact-2.0.0.zip`, `dist/kekidi-quiz-1.1.1.zip` et `dist/kekidi-scrutins-1.0.1.zip`. Activer Forminator avant Kekidi Contact.
+6. Facultatif : installer Koko Analytics et `dist/kekidi-super-editeur-1.0.0.zip` pour les statistiques et le rôle Super éditeur.
 7. Importer une seule fois `wordpress/reponses-kekidi.xml` via **Outils → Importer → WordPress**. L'importateur peut ensuite être désactivé. Le XML ajoute trois articles ; il ne crée pas de quiz de démonstration.
 8. Créer une page **Accueil** et la définir comme page statique dans **Réglages → Lecture**. Avec Kekidi 1.4.0, le fichier `front-page.html` affiche directement la composition `kekidi/accueil` : laisser cette page vide. L'instruction ancienne demandant d'insérer « Accueil éditable » ne s'applique pas à cette version.
 9. Passer l'article d'exemple WordPress en brouillon. Choisir les permaliens personnalisés `/reponses/%postname%/`.
@@ -55,6 +55,6 @@ Un rôle Super éditeur n'obtient pas automatiquement l'accès aux messages Form
 - Accueil et trois réponses vérifiés : titre principal unique et absence de débordement ; captures d'accueil et contact sur ordinateur et mobile.
 - WordPress Importer désactivé après utilisation.
 
-Les scripts de navigateur historiques ciblent le port 8881 et certains identifiants de l'ancien site. Pour ce test, leurs copies temporaires ont ciblé 8882, le navigateur de test sur 9224 et les nouveaux identifiants, avec un délai de chargement adapté pour Forminator. Le test historique `verify-theme.php` attend une ancienne structure d'accueil ; il ne constitue pas une vérification de la version 1.4.0.
+Les scripts de navigateur ciblent le port 8881 et certains identifiants fixes. Pour ce test, des scripts temporaires ont ciblé 8882, le navigateur de test sur 9224 et les identifiants des exemples, avec un délai de chargement adapté pour Forminator. `verify-theme.php` contrôle la structure d’accueil actuelle, les cartes, les droits Éditeur et la navigation.
 
-Le dossier `kekidi_open` et le site Studio Kekidi d'origine n'ont pas été modifiés par cette installation. Aucun déploiement public n'a été effectué. Restent hors de ce test : hébergement de production/MySQL, autres navigateurs et téléphone physique, audit complet des secrets et vérification des versions tierces plus récentes.
+Aucun déploiement public n'a été effectué. Restent hors de ce test : hébergement de production/MySQL, autres navigateurs et téléphone physique, audit complet des secrets et vérification des versions tierces plus récentes.
