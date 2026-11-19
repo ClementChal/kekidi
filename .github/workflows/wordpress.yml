@@ -40,7 +40,8 @@ jobs:
       - name: Générer et contrôler les cinq archives
         run: |
           cd "$RUNNER_TEMP/wordpress"
-          wp package install wp-cli/dist-archive-command:3.1.0
+          # Le Composer embarqué dans WP-CLI peut rejeter le jeton du runner.
+          env -u COMPOSER_AUTH COMPOSER_HOME="$(mktemp -d)" wp package install wp-cli/dist-archive-command:3.1.0
           mkdir -p "$GITHUB_WORKSPACE/dist"
           theme_version=$(awk '/^Version: / {print $2; exit}' "$GITHUB_WORKSPACE/wordpress/kekidi/style.css")
           wp dist-archive "$GITHUB_WORKSPACE/wordpress/kekidi" "$GITHUB_WORKSPACE/dist/kekidi-$theme_version.zip"
