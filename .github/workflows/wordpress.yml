@@ -7,12 +7,13 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - php: '7.4'
             wordpress: '6.6'
           - php: '8.3'
-            wordpress: latest
+            wordpress: '7.1.5'
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -33,7 +34,7 @@ jobs:
           mysql -uroot -proot -e 'CREATE DATABASE kekidi_ci'
           mkdir -p "$RUNNER_TEMP/wordpress"
           cd "$RUNNER_TEMP/wordpress"
-          wp core download --version "${{ matrix.wordpress }}"
+          wp core download --version="${{ matrix.wordpress }}"
           wp config create --dbname=kekidi_ci --dbuser=root --dbpass=root --dbhost=127.0.0.1
           wp core install --url=http://localhost --title=Kekidi --admin_user=admin --admin_password=local-ci-only --admin_email=admin@example.invalid --skip-email
       - name: Générer et contrôler les cinq archives

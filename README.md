@@ -133,7 +133,7 @@ Pour tout bloc ajouté ou modifié, utiliser `validate_blocks` avec le thème et
 
 ### Contrôles GitHub et standards PHP
 
-Le [workflow WordPress](.github/workflows/wordpress.yml) vérifie la syntaxe PHP, le quiz JavaScript, les ZIP et l’installation sur MySQL. Il couvre le couple minimal déclaré et un environnement PHP 8.3 avec le WordPress stable. Les résultats GitHub indiquent les combinaisons effectivement validées.
+Le [workflow WordPress](.github/workflows/wordpress.yml) vérifie la syntaxe PHP, le quiz JavaScript, les ZIP et l’installation sur MySQL. Il couvre le couple minimal déclaré et un environnement PHP 8.3 avec WordPress 7.1.5. Les résultats GitHub indiquent les combinaisons effectivement validées.
 
 Pour examiner les écarts aux standards WordPress en local, installer Composer puis lancer `composer install` et `composer lint:wp`. Le rapport PHPCS est informatif dans la CI pendant la reprise du code existant.
 
