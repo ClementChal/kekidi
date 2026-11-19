@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kekidi/quiz",
+  "version": "1.1.1",
+  "title": "Réponse quiz",
+  "category": "kekidi",
+  "icon": "editor-help",
+  "description": "Une question, de une à cinq propositions, un corrigé et une explication.",
+  "textdomain": "kekidi-quiz",
+  "usesContext": ["postId", "postType"],
+  "attributes": {
+    "choices": {
+      "type": "array",
+      "default": [{"label": "", "correct": true}, {"label": "", "correct": false}]
+    }
+  },
+  "supports": {"html": false, "multiple": false, "reusable": false, "customClassName": false},
+  "editorScript": "file:./editor.js",
+  "editorStyle": "file:./editor.css",
+  "viewScript": "file:./view.js",
+  "render": "file:./render.php"
+}

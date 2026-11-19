@@ -1,0 +1,40 @@
+# Secrets et configuration locale, à tous les niveaux
+.env
+.env.*
+!.env.example
+wp-config.php
+wp-config-local.php
+
+# Archives générées et sauvegardes locales
+*.zip
+**/backups/
+*.sql
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+*.wpress
+
+# Installation WordPress et données locales éventuelles
+**/wp-admin/
+**/wp-includes/
+**/wp-content/uploads/
+**/wp-content/database/
+**/wp-content/cache/
+**/wp-content/upgrade/
+**/wp-content/upgrade-temp-backup/
+**/wp-content/languages/
+
+# Dépendances locales ; conserver les vendor embarqués dans les extensions
+node_modules/
+/vendor/
+__pycache__/
+*.pyc
+*.log
+error_log
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/

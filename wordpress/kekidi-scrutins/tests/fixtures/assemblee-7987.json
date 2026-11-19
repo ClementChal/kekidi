@@ -1,0 +1,187 @@
+{
+  "data": {
+    "sourceData": {
+      "numero": "7987",
+      "legislature": "17",
+      "dateScrutin": "2026-07-07",
+      "titre": "l'ensemble de la proposition de loi visant à reconnaître une présomption de légitime défense pour les forces de l'ordre, dans l'exercice de leurs fonctions (première lecture).",
+      "syntheseVote": {
+        "annonce": "l'Assemblée nationale a adopté",
+        "decompte": {
+          "pour": "313",
+          "contre": "199",
+          "nonVotants": "1",
+          "abstentions": "5",
+          "nonVotantsVolontaires": "0"
+        },
+        "nombreVotants": "517",
+        "suffragesExprimes": "512",
+        "nbrSuffragesRequis": "257"
+      },
+      "ventilationVotes": {
+        "organe": {
+          "groupes": {
+            "groupe": [
+              {
+                "organeRef": "PO845401",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "122",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845407",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "55",
+                    "contre": "12",
+                    "nonVotants": "1",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845413",
+                "vote": {
+                  "positionMajoritaire": "contre",
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "69",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845419",
+                "vote": {
+                  "positionMajoritaire": "contre",
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "62",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845425",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "48",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845439",
+                "vote": {
+                  "positionMajoritaire": "contre",
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "29",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845454",
+                "vote": {
+                  "positionMajoritaire": "abstention",
+                  "decompteVoix": {
+                    "pour": "28",
+                    "contre": "1",
+                    "nonVotants": "0",
+                    "abstentions": "5",
+                    "nonVotantsVolontaires": "5"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845470",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "31",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845485",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "9",
+                    "contre": "8",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO872880",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "14",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO845514",
+                "vote": {
+                  "positionMajoritaire": "contre",
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "17",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              },
+              {
+                "organeRef": "PO840056",
+                "vote": {
+                  "positionMajoritaire": "pour",
+                  "decompteVoix": {
+                    "pour": "6",
+                    "contre": "1",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

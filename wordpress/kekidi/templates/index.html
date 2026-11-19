@@ -1,0 +1,19 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /--><!-- wp:group {"tagName":"main","className":"wrap kekidi-archive","anchor":"contenu","layout":{"type":"default"}} -->
+<main id="contenu" class="wp-block-group wrap kekidi-archive"><!-- wp:query-title {"type":"archive"} /--><!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"post","order":"asc","orderBy":"ID","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false}} -->
+<div class="wp-block-query"><!-- wp:post-template {"className":"questions-grid"} -->
+<!-- wp:group {"tagName":"article","className":"card question-card","layout":{"type":"default"}} -->
+<article class="wp-block-group card question-card"><!-- wp:post-terms {"term":"category","className":"badge"} /--><!-- wp:post-title {"level":3,"isLink":true} /--><!-- wp:group {"tagName":"div","className":"card-foot","layout":{"type":"default"}} -->
+<div class="wp-block-group card-foot"><!-- wp:read-more {"content":"Lire la réponse","className":"read-link"} /--></div>
+<!-- /wp:group --></article>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+<!-- wp:query-pagination -->
+<!-- wp:query-pagination-previous {"label":"Questions précédentes"} /--><!-- wp:query-pagination-numbers /--><!-- wp:query-pagination-next {"label":"Questions suivantes"} /-->
+<!-- /wp:query-pagination -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>Les premières questions arrivent bientôt.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query --></main>
+<!-- /wp:group --><!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

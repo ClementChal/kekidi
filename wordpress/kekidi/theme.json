@@ -1,0 +1,180 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "1120px",
+      "wideSize": "1184px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "cream",
+          "name": "Crème",
+          "color": "#FFF8F0"
+        },
+        {
+          "slug": "white",
+          "name": "Blanc",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "ink",
+          "name": "Encre",
+          "color": "#1F1F1F"
+        },
+        {
+          "slug": "pink",
+          "name": "Rose",
+          "color": "#FFB5D8"
+        },
+        {
+          "slug": "green",
+          "name": "Menthe",
+          "color": "#B5E6D3"
+        },
+        {
+          "slug": "yellow",
+          "name": "Jaune",
+          "color": "#FFE89A"
+        },
+        {
+          "slug": "blue",
+          "name": "Bleu",
+          "color": "#B5DBFF"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "body",
+          "name": "DM Sans",
+          "fontFamily": "\"DM Sans\", Verdana, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "DM Sans",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "src": [
+                "file:./assets/dm-sans-regular.ttf"
+              ]
+            },
+            {
+              "fontFamily": "DM Sans",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "src": [
+                "file:./assets/dm-sans-semibold.ttf"
+              ]
+            }
+          ]
+        },
+        {
+          "slug": "display",
+          "name": "Nunito",
+          "fontFamily": "Nunito, \"Trebuchet MS\", sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Nunito",
+              "fontWeight": "800",
+              "fontStyle": "normal",
+              "src": [
+                "file:./assets/nunito-extra-bold.ttf"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|cream",
+      "text": "var:preset|color|ink"
+    },
+    "spacing": {
+      "padding": {
+        "top": "0",
+        "right": "0",
+        "bottom": "0",
+        "left": "0"
+      }
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|body",
+      "fontSize": "1rem",
+      "lineHeight": "1.6"
+    },
+    "elements": {
+      "heading": {
+        "typography": {
+          "fontFamily": "var:preset|font-family|display",
+          "fontWeight": "800",
+          "lineHeight": "1.12"
+        }
+      },
+      "link": {
+        "color": {
+          "text": "inherit"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var:preset|color|green",
+          "text": "var:preset|color|ink"
+        },
+        "typography": {
+          "fontFamily": "var:preset|font-family|body",
+          "fontWeight": "600"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "En-tête accueil",
+      "area": "header"
+    },
+    {
+      "name": "header-reponse",
+      "title": "En-tête réponses",
+      "area": "header"
+    },
+    {
+      "name": "header-simple",
+      "title": "En-tête simple",
+      "area": "header"
+    },
+    {
+      "name": "brand",
+      "title": "Marque commune",
+      "area": "uncategorized"
+    },
+    {
+      "name": "footer",
+      "title": "Pied de page commun",
+      "area": "footer"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "reponse",
+      "title": "Réponse Kekidi",
+      "postTypes": [
+        "post",
+        "page"
+      ]
+    },
+    {
+      "name": "contact",
+      "title": "Contact Kekidi",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ]
+}

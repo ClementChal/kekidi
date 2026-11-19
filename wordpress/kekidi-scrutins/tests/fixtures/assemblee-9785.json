@@ -1,0 +1,241 @@
+{
+  "data": {
+    "sourceData": {
+      "uid": "VTANR5L17V9785",
+      "sort": {
+        "code": "rejeté",
+        "libelle": "L'Assemblée nationale n'a pas adopté"
+      },
+      "objet": {
+        "libelle": "l'amendement n° 35 de M. Pilato à l'article 11 du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité (première lecture).",
+        "dossierLegislatif": {
+          "libelle": "Projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité",
+          "dossierRef": "DLR5L17N50731"
+        },
+        "referenceLegislative": null
+      },
+      "titre": "l'amendement n° 35 de M. Pilato à l'article 11 du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité (première lecture).",
+      "@xmlns": "http://schemas.assemblee-nationale.fr/referentiel",
+      "numero": "9785",
+      "lieuVote": "Hémicycle",
+      "typeVote": {
+        "codeTypeVote": "SPO",
+        "typeMajorite": "Majorité absolue des suffrages exprimés",
+        "libelleTypeVote": "scrutin public ordinaire"
+      },
+      "demandeur": {
+        "texte": "Présidente de séance",
+        "referenceLegislative": null
+      },
+      "organeRef": "PO838901",
+      "seanceRef": "RUANR5L17S2027IDS30989",
+      "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "sessionRef": "SCR5A2027O1",
+      "dateScrutin": "2026-11-09",
+      "legislature": "17",
+      "miseAuPoint": {
+        "pours": null,
+        "contres": null,
+        "nonVotants": [
+          null,
+          null
+        ],
+        "abstentions": [
+          null,
+          null
+        ],
+        "dysfonctionnement": {
+          "pour": null,
+          "contre": null,
+          "nonVotants": null,
+          "abstentions": null,
+          "nonVotantsVolontaires": null
+        },
+        "nonVotantsVolontaires": [
+          null,
+          null
+        ]
+      },
+      "syntheseVote": {
+        "annonce": "L'Assemblée nationale n'a pas adopté",
+        "decompte": {
+          "pour": "22",
+          "contre": "28",
+          "nonVotants": "1",
+          "abstentions": "20",
+          "nonVotantsVolontaires": "0"
+        },
+        "nombreVotants": "70",
+        "suffragesExprimes": "50",
+        "nbrSuffragesRequis": "26"
+      },
+      "ventilationVotes": {
+        "organe": {
+          "groupes": {
+            "groupe": [
+              {
+                "organeRef": "PO845401",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "16",
+                    "nonVotantsVolontaires": "16"
+                  },
+                  "positionMajoritaire": "abstention"
+                }
+              },
+              {
+                "organeRef": "PO845407",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "12",
+                    "nonVotants": "1",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "contre"
+                }
+              },
+              {
+                "organeRef": "PO845413",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "9",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "pour"
+                }
+              },
+              {
+                "organeRef": "PO845419",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "5",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "pour"
+                }
+              },
+              {
+                "organeRef": "PO845425",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "4",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "contre"
+                }
+              },
+              {
+                "organeRef": "PO845439",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "7",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "pour"
+                }
+              },
+              {
+                "organeRef": "PO845454",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "5",
+                    "nonVotants": "0",
+                    "abstentions": "2",
+                    "nonVotantsVolontaires": "2"
+                  },
+                  "positionMajoritaire": "contre"
+                }
+              },
+              {
+                "organeRef": "PO845470",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "6",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "contre"
+                }
+              },
+              {
+                "organeRef": "PO845485",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "1",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "contre"
+                }
+              },
+              {
+                "organeRef": "PO845514",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "1",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "pour"
+                }
+              },
+              {
+                "organeRef": "PO872880",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "2",
+                    "nonVotantsVolontaires": "2"
+                  },
+                  "positionMajoritaire": "abstention"
+                }
+              },
+              {
+                "organeRef": "PO840056",
+                "vote": {
+                  "decompteVoix": {
+                    "pour": "0",
+                    "contre": "0",
+                    "nonVotants": "0",
+                    "abstentions": "0",
+                    "nonVotantsVolontaires": "0"
+                  },
+                  "positionMajoritaire": "pour"
+                }
+              }
+            ]
+          },
+          "organeRef": "PO838901"
+        }
+      },
+      "quantiemeJourSeance": "2",
+      "modePublicationDesVotes": "DecompteNominatif"
+    }
+  }
+}

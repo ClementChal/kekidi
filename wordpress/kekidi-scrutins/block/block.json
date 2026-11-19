@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kekidi/quiz-scrutin",
+  "version": "1.0.1",
+  "title": "Quiz scrutin",
+  "category": "kekidi",
+  "icon": "chart-bar",
+  "description": "Importer un scrutin vérifié de l’Assemblée ou du Sénat puis proposer un quiz sur les groupes parlementaires.",
+  "textdomain": "kekidi-scrutins",
+  "usesContext": [
+    "postId",
+    "postType"
+  ],
+  "attributes": {
+    "snapshotId": {
+      "type": "string",
+      "default": ""
+    },
+    "direction": {
+      "type": "string",
+      "default": "pour"
+    },
+    "measure": {
+      "type": "string",
+      "default": ""
+    },
+    "logos": {
+      "type": "object",
+      "default": {}
+    },
+    "editableExplanation": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "customClassName": false
+  },
+  "editorScript": "file:./editor.js",
+  "editorStyle": "file:./editor.css",
+  "viewScript": "file:./view.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,9 @@
+.kekidi-quiz-editor{border:2px solid var(--wp--preset--color--ink,#1f1f1f);border-radius:16px;padding:24px}
+.kekidi-quiz-editor>h2,.kekidi-quiz-editor>h3{margin-block:16px}
+.kekidi-quiz-editor>p{margin-block:16px;font-size:14px}
+.kekidi-quiz-editor-choice{padding:16px;margin-block:16px;border:1px solid #757575;border-radius:8px}
+.kekidi-quiz-editor-choice .components-base-control{margin-bottom:12px}
+.kekidi-quiz-editor-actions{display:flex;flex-wrap:wrap;gap:8px}
+.kekidi-quiz-editor .components-notice{margin:16px 0}
+.kekidi-quiz-editor .block-editor-inner-blocks{margin-block:20px}
+.kekidi-quiz-editor-note{color:#555}

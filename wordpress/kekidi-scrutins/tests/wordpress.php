@@ -1,0 +1,63 @@
+<?php
+$assert = static function ( bool $condition, string $message ): void { if ( ! $condition ) { throw new RuntimeException( $message ); } };
+$fixtures = __DIR__ . '/fixtures/';
+$snapshot = kekidi_scrutins_normalize_assemblee( json_decode( file_get_contents( $fixtures . 'assemblee-7987.json' ), true ), file_get_contents( $fixtures . 'assemblee-7987.html' ), 7987, '17' );
+$snapshot['retrievedAt'] = '2026-11-18T00:00:00+00:00';
+$original_user = get_current_user_id();
+$post_id = wp_insert_post( array( 'post_title' => 'Test technique scrutin', 'post_type' => 'post', 'post_status' => 'draft' ) );
+$other = wp_insert_post( array( 'post_title' => 'Autre test technique', 'post_type' => 'post', 'post_status' => 'draft' ) );
+$user = wp_insert_user( array( 'user_login' => 'scrutin-test-' . wp_generate_password( 8, false ), 'user_pass' => wp_generate_password(), 'role' => 'editor' ) );
+try {
+    $id = kekidi_scrutins_store_snapshot( $post_id, $snapshot );
+    $assert( metadata_exists( 'post', $post_id, '_kekidi_scrutin_snapshot_' . $id ), 'Chaque instantané a sa propre clé de stockage' );
+    $assert( strlen( $id ) === 64, 'Identifiant stable de l’instantané' );
+    $assert( kekidi_scrutins_snapshot( $post_id, $id )['number'] === 7987, 'Lecture de l’instantané' );
+    $assert( kekidi_scrutins_snapshot( $other, $id ) === null, 'Pas d’emprunt d’un instantané appartenant à un autre article' );
+    $snapshot['retrievedAt'] = '2026-11-19T00:00:00+00:00';
+    $assert( kekidi_scrutins_store_snapshot( $post_id, $snapshot ) === $id, 'Import identique dédoublonné' );
+    $assert( kekidi_scrutins_snapshot( $post_id, $id )['retrievedAt'] === '2026-11-18T00:00:00+00:00', 'Instantané immuable' );
+    wp_set_current_user( 0 );
+    $request = new WP_REST_Request( 'GET', '/kekidi/v1/scrutins/' . $post_id . '/' . $id );
+    $assert( rest_do_request( $request )->get_status() === 401, 'Visiteur refusé' );
+    wp_set_current_user( $user );
+    $assert( rest_do_request( $request )->get_status() === 200, 'Éditeur autorisé sans privilège admin' );
+    $assert( kekidi_scrutins_content_error( '<!-- wp:kekidi/quiz-scrutin /-->', $post_id ) !== '', 'Bloc incomplet refusé à la publication' );
+    $content = '<!-- wp:kekidi/quiz-scrutin {"snapshotId":"' . $id . '","direction":"pour","measure":"Mesure testée"} /-->';
+    $assert( kekidi_scrutins_content_error( $content, $post_id ) === '', 'Référence valide' );
+    $assert( kekidi_scrutins_content_error( $content . $content, $post_id ) !== '', 'Un seul quiz par article' );
+    $assert( kekidi_scrutins_content_error( $content, $other ) !== '', 'Une référence d’un autre article ne peut pas être publiée' );
+    $assert( kekidi_scrutins_content_error( str_replace( '"pour"', '"autre"', $content ), $post_id ) !== '', 'Sens invalide refusé' );
+    $assert( kekidi_scrutins_content_error( str_replace( 'Mesure testée', '', $content ), $post_id ) !== '', 'Présentation éditoriale obligatoire' );
+    $assert( get_post_status( $post_id ) === 'draft' && get_post_field( 'post_content', $post_id ) === '', 'Importer n’a ni publié ni changé le contenu' );
+    $editorial = '<!-- wp:kekidi/quiz-scrutin ' . wp_json_encode( array( 'snapshotId' => $id, 'direction' => 'pour', 'measure' => 'Mesure testée', 'editableExplanation' => true ) ) . ' --><!-- wp:heading --><h2 class="wp-block-heading">Comprendre &amp; approfondir</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Premier paragraphe éditorial.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Second paragraphe éditorial.</p><!-- /wp:paragraph --><!-- /wp:kekidi/quiz-scrutin -->';
+    $rendered = ( new WP_Block( parse_blocks( $editorial )[0], array( 'postId' => $post_id ) ) )->render();
+    $assert( false !== strpos( $rendered, '<h2 class="wp-block-heading">Comprendre &amp; approfondir</h2>' ), 'Titre H2 personnalisable et caractères conservés' );
+    $assert( false !== strpos( $rendered, 'Premier paragraphe éditorial.' ) && false !== strpos( $rendered, 'Second paragraphe éditorial.' ), 'Les deux paragraphes rédigés sont conservés' );
+    foreach ( array( 'Résultat du scrutin :', 'groupes sont représentés.', 'Données vérifiées sur la page officielle', 'Majorité strictement supérieure à 50 %' ) as $automatic ) {
+        $assert( false === strpos( $rendered, $automatic ), 'Aucun paragraphe automatique ajouté à l’explication : ' . $automatic );
+    }
+    $defaults = kekidi_scrutins_default_explanation( $snapshot, 'contre' );
+    $assert( false !== strpos( $defaults, 'majoritairement contre.' ) && false !== strpos( $defaults, $snapshot['sourceUrl'] ) && false !== strpos( $defaults, 'noopener noreferrer' ), 'Les textes initiaux sont fournis comme blocs éditables dans le bon sens' );
+    $assert( kekidi_scrutins_local_explanation( parse_blocks( $defaults ) ), 'Les blocs initiaux sont autorisés, titre et détails compris' );
+    $old_render = ( new WP_Block( parse_blocks( $content )[0], array( 'postId' => $post_id ) ) )->render();
+    $assert( false !== strpos( $old_render, '<h2>On vous explique.</h2>' ), 'Ancien article compatible sans migration du contenu' );
+    wp_set_current_user( 0 );
+    $public = new WP_REST_Request( 'POST', '/kekidi/v1/scrutins/import' );
+    $public->set_param( 'postId', $post_id ); $public->set_param( 'chamber', 'assemblee' ); $public->set_param( 'period', '17' ); $public->set_param( 'number', 7987 );
+    $assert( rest_do_request( $public )->get_status() === 401, 'Import interdit aux visiteurs' );
+    kekidi_scrutins_store_snapshot( $other, $snapshot );
+    wp_update_post( array( 'ID' => $post_id, 'post_author' => $user ) );
+    wp_update_post( array( 'ID' => $other, 'post_author' => 1 ) );
+    ( new WP_User( $user ) )->set_role( 'author' );
+    wp_set_current_user( $user );
+    $spoof = new WP_REST_Request( 'GET', '/kekidi/v1/scrutins/' . $other . '/' . $id );
+    $spoof->set_query_params( array( 'postId' => $post_id ) );
+    $assert( rest_do_request( $spoof )->get_status() === 403, 'Le paramètre postId ne peut pas contourner l’autorisation du chemin' );
+    $with_embed = str_replace( ' /-->', ' --><!-- wp:embed {"url":"https://example.com/video"} /--><!-- /wp:kekidi/quiz-scrutin -->', $content );
+    $assert( kekidi_scrutins_content_error( $with_embed, $post_id ) !== '', 'Pas d’intégration distante dans le quiz' );
+    echo "WordPress : stockage immuable, dédoublonnage, permissions éditeur/visiteur et publication contrôlée vérifiés.\n";
+} finally {
+    wp_set_current_user( $original_user );
+    wp_delete_post( $post_id, true ); wp_delete_post( $other, true );
+    require_once ABSPATH . 'wp-admin/includes/user.php'; wp_delete_user( $user );
+}

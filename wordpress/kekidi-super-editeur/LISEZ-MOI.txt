@@ -1,0 +1,12 @@
+Kekidi — Super éditeur
+
+Installation :
+1. Dans WordPress, ouvrir Extensions → Ajouter une extension → Téléverser une extension.
+2. Choisir wordpress/extensions/kekidi-super-editeur.zip, installer puis activer l’extension.
+3. Ouvrir Comptes → Ajouter un compte et choisir « Super éditeur » comme rôle.
+
+Le rôle reprend les droits de l’Éditeur, permet de modifier l’Éditeur de site
+(modèles et compositions) et autorise la consultation des statistiques Koko.
+Il ne permet pas de gérer les extensions, thèmes, comptes ou réglages WordPress.
+
+Koko Analytics doit être installé et activé pour afficher ses statistiques.

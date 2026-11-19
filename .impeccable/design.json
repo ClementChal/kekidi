@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T10:27:26.892829+00:00",
+  "title": "Design system Kekidi?!",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "shadow",
+        "value": "5px 5px 0 var(--border)",
+        "purpose": "Cartes et boutons au repos."
+      },
+      {
+        "name": "shadow-large",
+        "value": "8px 8px 0 var(--border)",
+        "purpose": "Affiche et grands panneaux."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.23,1, .32,1)",
+        "purpose": "Transitions des contrôles ; désactivées avec la réduction des mouvements."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "600px"
+      },
+      {
+        "name": "quiz-padding",
+        "value": "768px"
+      },
+      {
+        "name": "single-column",
+        "value": "800px"
+      },
+      {
+        "name": "wide",
+        "value": "1500px"
+      }
+    ]
+  },
+  "narrative": {
+    "northStar": "Une affiche citoyenne accueillante"
+  }
+}

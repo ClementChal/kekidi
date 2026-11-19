@@ -1,0 +1,225 @@
+{
+  "date": "2026-10-23",
+  "themeVersion": "1.1.4",
+  "site": "http://localhost:8881",
+  "reference": "Fichiers HTML Open Design du projet, inchangés.",
+  "viewports": {
+    "desktop": {
+      "width": 1040,
+      "height": 1248
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "method": "La page d’accueil est désormais rendue depuis une page WordPress statique dont les blocs sont verrouillés en mode contenu uniquement. Comparaison des boîtes des éléments dans Chromium avec inspect_design, comparaison des styles et du survol des contrôles, puis comparaison SHA-256 des fichiers de capture Open Design et WordPress. Les dix paires de captures sont identiques octet par octet aux deux formats testés. Les autres navigateurs ne sont pas couverts.",
+  "captures": [
+    {
+      "page": "accueil",
+      "viewport": "desktop",
+      "identical": true,
+      "referenceSha256": "96bcb13cffe3e838ed3eed3d9a5ca169c3aaf2d9a547d20da136c28b5edc596c",
+      "wordpressSha256": "96bcb13cffe3e838ed3eed3d9a5ca169c3aaf2d9a547d20da136c28b5edc596c"
+    },
+    {
+      "page": "accueil",
+      "viewport": "mobile",
+      "identical": true,
+      "referenceSha256": "c5fd4f2e5703bcbba1e663bf4aab327086ac96854d35985d4e8dade7b9864c9e",
+      "wordpressSha256": "c5fd4f2e5703bcbba1e663bf4aab327086ac96854d35985d4e8dade7b9864c9e"
+    },
+    {
+      "page": "espace-public",
+      "viewport": "desktop",
+      "identical": true,
+      "referenceSha256": "50d435aaa875a03883252e1b333b65b2a1bb3966dcf13bea3eb5e2c47ad3bed0",
+      "wordpressSha256": "50d435aaa875a03883252e1b333b65b2a1bb3966dcf13bea3eb5e2c47ad3bed0"
+    },
+    {
+      "page": "espace-public",
+      "viewport": "mobile",
+      "identical": true,
+      "referenceSha256": "4f69f14e70dcba6a1d09a79768512fc952bf89dcd16a46db48c71c94d024a275",
+      "wordpressSha256": "4f69f14e70dcba6a1d09a79768512fc952bf89dcd16a46db48c71c94d024a275"
+    },
+    {
+      "page": "arbres-en-ville",
+      "viewport": "desktop",
+      "identical": true,
+      "referenceSha256": "e15ca5eef504fca25b34862b2c3b995b351ac64b730b2a490577987135da67ff",
+      "wordpressSha256": "e15ca5eef504fca25b34862b2c3b995b351ac64b730b2a490577987135da67ff"
+    },
+    {
+      "page": "arbres-en-ville",
+      "viewport": "mobile",
+      "identical": true,
+      "referenceSha256": "fa1c4381e6bf15542253032c91e066cb405e1989dc7ac6f39ddd8349d5954f6c",
+      "wordpressSha256": "fa1c4381e6bf15542253032c91e066cb405e1989dc7ac6f39ddd8349d5954f6c"
+    },
+    {
+      "page": "decisions-locales",
+      "viewport": "desktop",
+      "identical": true,
+      "referenceSha256": "cc6f032b88bcb0b9c69d4c0e319c4004bc8375cff0e365bd8fd3b8149d9fd07d",
+      "wordpressSha256": "cc6f032b88bcb0b9c69d4c0e319c4004bc8375cff0e365bd8fd3b8149d9fd07d"
+    },
+    {
+      "page": "decisions-locales",
+      "viewport": "mobile",
+      "identical": true,
+      "referenceSha256": "fe8effc0c8758a54a5915942be369fb9528cd5a4ead0731f9e9d91128bca57e0",
+      "wordpressSha256": "fe8effc0c8758a54a5915942be369fb9528cd5a4ead0731f9e9d91128bca57e0"
+    },
+    {
+      "page": "404",
+      "viewport": "desktop",
+      "identical": true,
+      "referenceSha256": "cb832168f18a52a0f66281e2eb115077385e5a5935a2d00b28069fe4c5896892",
+      "wordpressSha256": "cb832168f18a52a0f66281e2eb115077385e5a5935a2d00b28069fe4c5896892"
+    },
+    {
+      "page": "404",
+      "viewport": "mobile",
+      "identical": true,
+      "referenceSha256": "c7eb5b34582b4d683ce6967a31d671bac19971525c03afbbd7b5225ec1093f40",
+      "wordpressSha256": "c7eb5b34582b4d683ce6967a31d671bac19971525c03afbbd7b5225ec1093f40"
+    }
+  ],
+  "geometry": [
+    {
+      "page": "espace-public",
+      "viewport": "desktop",
+      "count": 16,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "espace-public",
+      "viewport": "mobile",
+      "count": 16,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "arbres-en-ville",
+      "viewport": "desktop",
+      "count": 16,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "arbres-en-ville",
+      "viewport": "mobile",
+      "count": 16,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "decisions-locales",
+      "viewport": "desktop",
+      "count": 16,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "decisions-locales",
+      "viewport": "mobile",
+      "count": 16,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "404",
+      "viewport": "desktop",
+      "count": 11,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "404",
+      "viewport": "mobile",
+      "count": 11,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "accueil",
+      "viewport": "desktop",
+      "count": 44,
+      "maxDelta": 0,
+      "diffs": []
+    },
+    {
+      "page": "accueil",
+      "viewport": "mobile",
+      "count": 44,
+      "maxDelta": 0,
+      "diffs": []
+    }
+  ],
+  "controls": [
+    {
+      "page": "accueil",
+      "viewport": "desktop",
+      "count": 9,
+      "diffs": []
+    },
+    {
+      "page": "accueil",
+      "viewport": "mobile",
+      "count": 9,
+      "diffs": []
+    },
+    {
+      "page": "espace-public",
+      "viewport": "desktop",
+      "count": 3,
+      "diffs": []
+    },
+    {
+      "page": "espace-public",
+      "viewport": "mobile",
+      "count": 3,
+      "diffs": []
+    },
+    {
+      "page": "arbres-en-ville",
+      "viewport": "desktop",
+      "count": 3,
+      "diffs": []
+    },
+    {
+      "page": "arbres-en-ville",
+      "viewport": "mobile",
+      "count": 3,
+      "diffs": []
+    },
+    {
+      "page": "decisions-locales",
+      "viewport": "desktop",
+      "count": 3,
+      "diffs": []
+    },
+    {
+      "page": "decisions-locales",
+      "viewport": "mobile",
+      "count": 3,
+      "diffs": []
+    },
+    {
+      "page": "404",
+      "viewport": "desktop",
+      "count": 1,
+      "diffs": []
+    },
+    {
+      "page": "404",
+      "viewport": "mobile",
+      "count": 1,
+      "diffs": []
+    }
+  ],
+  "integration": "Cartes à lien unique, ordre des réponses et boucle de navigation vérifiés via verify-theme.php.",
+  "blocks": "Modèles, éléments de modèle, compositions et trois réponses validés dans Gutenberg, sans correction de sérialisation nécessaire."
+}

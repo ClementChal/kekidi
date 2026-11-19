@@ -1,0 +1,8 @@
+Nom,HEX,Rouge,Vert,Bleu,Usage
+Papier,#FFF8F0,255,248,240,Fond général et lecture
+Encre,#1F1F1F,31,31,31,Textes contours pictogrammes et ombres
+Blanc,#FFFFFF,255,255,255,Cartes et boutons secondaires
+Rose,#FFB5D8,255,181,216,Signature affiche et activation des liens
+Menthe,#B5E6D3,181,230,211,Action principale liens et fonctionnement
+Jaune,#FFE89A,255,232,154,Réponse courte et survol
+Ciel,#B5DBFF,181,219,255,Accent de catégorie

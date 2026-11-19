@@ -1,0 +1,26 @@
+[
+  {
+    "id": "espace-public",
+    "category": "Vie collective",
+    "question": "À qui appartient l’espace public ?",
+    "answer": "Un espace à partager.",
+    "explanation": "Une place, une rue, un jardin : on s’y croise sans forcément se connaître. Marcher, jouer, se retrouver ou simplement faire une pause… nos envies ne sont pas toujours les mêmes. Partager cet espace, c’est aussi chercher comment laisser une place aux autres.",
+    "sources": []
+  },
+  {
+    "id": "arbres-en-ville",
+    "category": "Cadre de vie",
+    "question": "Pourquoi planter des arbres en ville ?",
+    "answer": "Pour faire une place au vivant.",
+    "explanation": "Et si on regardait la rue autrement ? Un arbre invite à imaginer une ville où le végétal a toute sa place. Où planter, quelles essences choisir, comment en prendre soin : derrière une idée simple se cachent des choix à discuter à l’échelle du quartier.",
+    "sources": []
+  },
+  {
+    "id": "decisions-locales",
+    "category": "Participation",
+    "question": "Comment se prennent les décisions près de chez nous ?",
+    "answer": "Ça commence par en parler.",
+    "explanation": "Une rue à aménager, un lieu à faire vivre, une idée pour le quartier… Avant de se faire un avis, prenons le temps de poser les questions : qui porte le projet ? Qui peut y contribuer ? Où trouver les informations ? Comprendre les échanges, c’est déjà entrer dans la discussion.",
+    "sources": []
+  }
+]
