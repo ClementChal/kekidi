@@ -1,6 +1,7 @@
-// Chromium de test lancé avec --remote-debugging-port=9223 ; Studio sur localhost:8881.
 import assert from 'node:assert/strict';
-const pages = await (await fetch('http://127.0.0.1:9223/json')).json();
+const siteUrl = (process.env.KEKIDI_SITE_URL ?? 'http://localhost:8881').replace(/\/$/, '');
+const cdpUrl = (process.env.KEKIDI_CDP_URL ?? 'http://127.0.0.1:9223').replace(/\/$/, '');
+const pages = await (await fetch(cdpUrl + '/json')).json();
 const page = pages.find(item => item.type === 'page');
 const socket = new WebSocket(page.webSocketDebuggerUrl);
 const pending = new Map();
@@ -23,7 +24,7 @@ try {
   await send('Network.setCacheDisabled', {cacheDisabled:true});
   await send('Network.clearBrowserCookies');
   await send('Emulation.setDeviceMetricsOverride', {width:390,height:844,deviceScaleFactor:1,mobile:true});
-  await send('Page.navigate', {url:'http://localhost:8881/contact/'}); await wait(1800);
+  await send('Page.navigate', {url:siteUrl + '/contact/'}); await wait(1800);
   assert.equal(await evaluate('document.documentElement.scrollWidth>innerWidth'),false);
   assert.equal(await evaluate('document.querySelector("select").value'),'Poser une question');
   assert.equal(await evaluate('document.querySelector("button[type=submit]").getBoundingClientRect().height'),52);
@@ -70,7 +71,7 @@ try {
   assert.equal(await evaluate('document.querySelector("button[type=submit]").textContent'),'Réessayer l’envoi');
   assert.equal(await evaluate('document.activeElement.className'),'contact-feedback');
   // Recharger restaure le vrai transport ; le prochain envoi doit être enregistré par WordPress.
-  await send('Page.navigate',{url:'http://localhost:8881/contact/'});await wait(1400);
+  await send('Page.navigate',{url:siteUrl + '/contact/'});await wait(1400);
   const invalid=await evaluate(`(async()=>{
     const data=new FormData(document.querySelector('form'));
     data.set('email-1','adresse-invalide');data.set('textarea-1','');
@@ -91,11 +92,11 @@ try {
   assert.equal(await evaluate('document.querySelector(".contact-success h2").textContent'),'Merci, votre message est envoyé !');
   for(const width of [320,1440]){
     await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:width<600});
-    await send('Page.navigate',{url:'http://localhost:8881/contact/'});await wait(900);
+    await send('Page.navigate',{url:siteUrl + '/contact/'});await wait(900);
     assert.equal(await evaluate('document.documentElement.scrollWidth>innerWidth'),false,`Débordement à ${width}px`);
     assert(await evaluate('document.querySelector("button[type=submit]").getBoundingClientRect().height >= 52'));
   }
-  await send('Page.navigate',{url:'http://localhost:8881/studio-auto-login?redirect_to=%2Fwp-admin%2Fpost-new.php%3Fpost_type%3Dpage'});await wait(3500);
+  await send('Page.navigate',{url:siteUrl + '/studio-auto-login?redirect_to=%2Fwp-admin%2Fpost-new.php%3Fpost_type%3Dpage'});await wait(3500);
   const editor=await evaluate(`(async()=>{
     const patterns=await wp.apiFetch({path:'/wp/v2/block-patterns/patterns'});
     return {received:patterns.some(p=>p.name==='kekidi/contact'),block:!!wp.blocks.getBlockType('forminator/forms'),visible:wp.data.select('core/block-editor').__experimentalGetAllowedPatterns().some(p=>p.name==='kekidi/contact')};

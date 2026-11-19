@@ -1,6 +1,9 @@
-// Chromium de test lancé avec --remote-debugging-port=9223 ; Studio sur localhost:8881.
 import assert from 'node:assert/strict';
-const pages = await (await fetch('http://127.0.0.1:9223/json')).json();
+const siteUrl = (process.env.KEKIDI_SITE_URL ?? 'http://localhost:8881').replace(/\/$/, '');
+const cdpUrl = (process.env.KEKIDI_CDP_URL ?? 'http://127.0.0.1:9223').replace(/\/$/, '');
+const postId = Number(process.env.KEKIDI_ARTICLE_POST_ID ?? 1001);
+assert(Number.isSafeInteger(postId) && postId > 0, 'Identifiant d’article invalide');
+const pages = await (await fetch(cdpUrl + '/json')).json();
 const page = pages.find(item => item.type === 'page');
 const socket = new WebSocket(page.webSocketDebuggerUrl);
 const pending = new Map();
@@ -38,7 +41,7 @@ try {
  await send('Page.enable');await send('Network.enable');await send('Network.setCacheDisabled',{cacheDisabled:true});
  for(const width of [1440,390,320]){
   await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:width<600});
-  await send('Page.navigate',{url:'http://localhost:8881/reponses/espace-public/'});await wait(1000);
+  await send('Page.navigate',{url:siteUrl + '/reponses/espace-public/'});await wait(1000);
   await evaluate(inject);await wait(150);
   const m=await evaluate(metrics);
   assert.deepEqual(m.newHeading,m.heading);assert.deepEqual(m.nestedHeading,m.heading);
@@ -49,9 +52,9 @@ try {
   assert.equal(await evaluate('getComputedStyle(document.querySelector("#nested-heading").parentElement).marginTop'),'32px');
   console.log(`Article ${width}px : titres, textes, groupes, images et styles réservés vérifiés.`);
  }
- await send('Page.navigate',{url:'http://localhost:8881/reponses/missions-police/'});await wait(900);
+ await send('Page.navigate',{url:siteUrl + '/reponses/missions-police/'});await wait(900);
  assert.equal(await evaluate(`getComputedStyle(document.querySelector('.quiz-instructions')).fontSize`),'14px');
- await send('Page.navigate',{url:'http://localhost:8881/studio-auto-login?redirect_to=%2Fwp-admin%2Fpost.php%3Fpost%3D1001%26action%3Dedit'});await wait(3000);
+ await send('Page.navigate',{url:siteUrl + '/studio-auto-login?redirect_to=%2Fwp-admin%2Fpost.php%3Fpost%3D' + postId + '%26action%3Dedit'});await wait(3000);
  const editor=await evaluate(`(() => {
   const frame=document.querySelector('iframe[name="editor-canvas"]');const doc=frame?.contentDocument||document;
   const root=doc.querySelector('.is-root-container');const oldP=doc.querySelector('.answer-detail p');const oldH=doc.querySelector('.answer-detail h2');

@@ -129,13 +129,25 @@ eval-file /CHEMIN_DEPOT/wordpress/kekidi-scrutins/tests/data.php --skip-plugins=
 
 Adapter `admin` au compte du site. Les contrôles d’intégration créent et suppriment des articles et comptes temporaires : utiliser le site de test. `data.php` charge directement ses sources ; `--skip-plugins=kekidi-scrutins` évite une double déclaration avec l’extension installée. Ce test utilise des fixtures sans accès réseau.
 
-Pour tout bloc ajouté ou modifié, utiliser `validate_blocks` avec le thème et les extensions actifs avant de publier les contenus. Les scripts navigateur utilisent Chromium/CDP et contiennent des URL, ports et IDs fixes : les adapter à son site avant exécution. Les [tests Contact](wordpress/kekidi-contact/README.md) créent un message fictif et nécessitent un dispositif temporaire de blocage/comptage des e-mails, à retirer après vérification.
+Pour tout bloc ajouté ou modifié, utiliser `validate_blocks` avec le thème et les extensions actifs avant de publier les contenus. Les scripts navigateur utilisent Chromium/CDP et acceptent les paramètres décrits ci-dessous. Les [tests Contact](wordpress/kekidi-contact/README.md) créent un message fictif et nécessitent un dispositif temporaire de blocage/comptage des e-mails, à retirer après vérification.
+
+### Contrôles GitHub et standards PHP
+
+Le [workflow WordPress](.github/workflows/wordpress.yml) vérifie la syntaxe PHP, le quiz JavaScript, les ZIP et l’installation sur MySQL. Il couvre le couple minimal déclaré et un environnement PHP 8.3 avec le WordPress stable. Les résultats GitHub indiquent les combinaisons effectivement validées.
+
+Pour examiner les écarts aux standards WordPress en local, installer Composer puis lancer `composer install` et `composer lint:wp`. Le rapport PHPCS est informatif dans la CI pendant la reprise du code existant.
+
+Pour cibler Studio depuis un test navigateur, définir `KEKIDI_SITE_URL` et `KEKIDI_CDP_URL`. Définir aussi `KEKIDI_SCRUTIN_POST_ID` ou `KEKIDI_ARTICLE_POST_ID` selon le script. Les articles attendus doivent être présents sur le site de test. Exemple :
+
+```sh
+KEKIDI_SITE_URL=http://localhost:8883 KEKIDI_CDP_URL=http://127.0.0.1:9225 KEKIDI_SCRUTIN_POST_ID=1019 node wordpress/kekidi-scrutins/tests/browser.mjs
+```
 
 ### Recette fonctionnelle
 
 Vérifier les pages touchées en visiteur et avec le rôle éditorial adapté : accueil et liens, réponses, quiz juste/faux/vide, rechargement vierge, import réel de scrutin, texte éditorial préservé, contact invalide, panne/réessai et message présent dans Forminator. Contrôler mobile 320/390 px et ordinateur 1440 px, clavier, focus, réduction des animations et Gutenberg.
 
-La recette détaillée figure dans [INSTALLATION-VIERGE.md](wordpress/INSTALLATION-VIERGE.md). Safari, téléphone physique et hébergement cible/MySQL restent à vérifier séparément. Le test du thème contrôle l’accueil statique, sa composition, les cartes, les droits Éditeur et la navigation cyclique. Aucun lint global, aucune CI et aucune matrice complète de versions PHP ne sont encore configurés.
+La recette détaillée figure dans [INSTALLATION-VIERGE.md](wordpress/INSTALLATION-VIERGE.md). Safari, téléphone physique et hébergement cible/MySQL restent à vérifier séparément. Le test du thème contrôle l’accueil statique, sa composition, les cartes, les droits Éditeur et la navigation cyclique.
 
 ## Données, permissions et sécurité
 

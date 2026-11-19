@@ -1,0 +1,66 @@
+name: WordPress
+on: [push, pull_request]
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - php: '7.4'
+            wordpress: '6.6'
+          - php: '8.3'
+            wordpress: latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mysqli, dom, simplexml, zip
+          tools: wp-cli:2.12.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Syntaxe PHP et quiz JavaScript
+        run: |
+          find wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
+          node wordpress/kekidi-quiz/tests/runtime.mjs
+      - name: Installer WordPress sur MySQL
+        run: |
+          sudo systemctl start mysql
+          mysql -uroot -proot -e 'CREATE DATABASE kekidi_ci'
+          mkdir -p "$RUNNER_TEMP/wordpress"
+          cd "$RUNNER_TEMP/wordpress"
+          wp core download --version "${{ matrix.wordpress }}"
+          wp config create --dbname=kekidi_ci --dbuser=root --dbpass=root --dbhost=127.0.0.1
+          wp core install --url=http://localhost --title=Kekidi --admin_user=admin --admin_password=local-ci-only --admin_email=admin@example.invalid --skip-email
+      - name: Générer et contrôler les cinq archives
+        run: |
+          cd "$RUNNER_TEMP/wordpress"
+          wp package install wp-cli/dist-archive-command:3.1.0
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          theme_version=$(awk '/^Version: / {print $2; exit}' "$GITHUB_WORKSPACE/wordpress/kekidi/style.css")
+          wp dist-archive "$GITHUB_WORKSPACE/wordpress/kekidi" "$GITHUB_WORKSPACE/dist/kekidi-$theme_version.zip"
+          for slug in contact quiz scrutins super-editeur; do
+            component="kekidi-$slug"
+            source="$GITHUB_WORKSPACE/wordpress/$component"
+            version=$(awk '/^ \* Version: / {print $3; exit}' "$source/$component.php")
+            wp dist-archive "$source" "$GITHUB_WORKSPACE/dist/$component-$version.zip"
+          done
+          wp eval-file "$GITHUB_WORKSPACE/wordpress/tests/distribution.php"
+      - name: Installer les livrables et vérifier les extensions
+        run: |
+          cd "$RUNNER_TEMP/wordpress"
+          wp theme install "$GITHUB_WORKSPACE"/dist/kekidi-[0-9]*.zip --activate
+          wp plugin install forminator --version=1.58.6 --activate
+          wp plugin install "$GITHUB_WORKSPACE"/dist/kekidi-{contact,quiz,scrutins,super-editeur}-*.zip --activate
+          wp eval-file "$GITHUB_WORKSPACE/wordpress/kekidi-quiz/tests/wordpress.php" --user=admin
+          wp eval-file "$GITHUB_WORKSPACE/wordpress/kekidi-scrutins/tests/wordpress.php" --user=admin
+      - name: Rapport WordPress Coding Standards
+        if: matrix.php == '8.3'
+        continue-on-error: true
+        run: |
+          composer install --no-interaction --prefer-dist
+          composer lint:wp

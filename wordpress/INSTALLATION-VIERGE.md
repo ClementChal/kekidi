@@ -21,7 +21,7 @@ Les versions tierces ci-dessus décrivent le test effectué. Elles ne garantisse
 
 ## Installation manuelle dans Studio
 
-1. Créer un nouveau site vide, dans son propre dossier. Ne pas importer une sauvegarde de l'ancien site.
+1. Créer un nouveau site vide, dans son propre dossier. Ne pas importer une sauvegarde de l'ancien site. Dans **Réglages → Général → Langue du site**, choisir **Français** pour localiser l’administration et les dates.
 2. Constituer les archives avec WP-CLI et vérifier leur contenu selon [Produire une livraison](../README.md#produire-une-livraison). Le thème est directement maintenu, sans étape de génération.
 3. Dans l'administration du nouveau site, téléverser `dist/kekidi-1.4.0.zip` depuis **Apparence → Thèmes**, puis l'activer. Adapter le numéro à la version livrée.
 4. Installer et activer Forminator, par WPMU DEV. Pour reproduire exactement le test, utiliser la version 1.58.4 du répertoire WordPress.org.
@@ -55,6 +55,6 @@ Un rôle Super éditeur n'obtient pas automatiquement l'accès aux messages Form
 - Accueil et trois réponses vérifiés : titre principal unique et absence de débordement ; captures d'accueil et contact sur ordinateur et mobile.
 - WordPress Importer désactivé après utilisation.
 
-Les scripts de navigateur ciblent le port 8881 et certains identifiants fixes. Pour ce test, des scripts temporaires ont ciblé 8882, le navigateur de test sur 9224 et les identifiants des exemples, avec un délai de chargement adapté pour Forminator. `verify-theme.php` contrôle la structure d’accueil actuelle, les cartes, les droits Éditeur et la navigation.
+Pour une nouvelle recette, configurer les URL et identifiants des scripts navigateur selon le [README](../README.md#contrôles-github-et-standards-php). `verify-theme.php` contrôle la structure d’accueil actuelle, les cartes, les droits Éditeur et la navigation.
 
 Aucun déploiement public n'a été effectué. Restent hors de ce test : hébergement de production/MySQL, autres navigateurs et téléphone physique, audit complet des secrets et vérification des versions tierces plus récentes.

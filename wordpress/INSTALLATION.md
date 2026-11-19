@@ -15,3 +15,11 @@ Ne pas supprimer un thème ou une extension avant de le remplacer. Ne pas réimp
 Le thème se maintient directement dans `wordpress/kekidi/`. Les adaptations faites dans l’Éditeur de site doivent être vérifiées avant de remplacer les fichiers : certaines sont enregistrées en base et peuvent avoir priorité.
 
 Les articles utilisent `/reponses/<slug>/`. Préserver toute adresse déjà diffusée ou imprimée ; un changement de titre ou de format réponse/quiz ne doit pas modifier le slug.
+
+## Recette de mise à jour en préproduction
+
+1. Relever les versions WordPress, PHP, MySQL ou MariaDB et Forminator sur l’hébergement cible. Utiliser les mêmes versions en préproduction.
+2. Préparer une sauvegarde de la base et des fichiers. Restaurer une copie isolée, avec des soumissions fictives et des scrutins publiés. Désactiver les notifications sortantes sur cette copie.
+3. Avant la mise à jour, relever les permaliens, l’identifiant du formulaire, le nombre de soumissions et les références des instantanés liés aux articles.
+4. Remplacer le thème et les extensions par les ZIP candidats en conservant la base. Comparer les valeurs relevées, ouvrir les anciens scrutins, puis enregistrer un message fictif et vérifier sa présence dans Forminator.
+5. Tester la restauration de la sauvegarde sur cette même préproduction. Consigner les versions, les archives et le résultat avant de livrer.
