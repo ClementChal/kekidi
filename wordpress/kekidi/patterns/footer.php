@@ -4,7 +4,10 @@
  * Slug: kekidi/footer
  * Categories: kekidi
  * Inserter: false
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"div","className":"site-footer","layout":{"type":"default"}} -->

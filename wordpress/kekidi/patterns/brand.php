@@ -4,7 +4,10 @@
  * Slug: kekidi/brand
  * Categories: kekidi
  * Inserter: false
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:paragraph -->

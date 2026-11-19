@@ -1,7 +1,17 @@
 <?php
-/** Le formulaire est créé une seule fois, avec un identifiant propre à chaque site. */
+/**
+ * Le formulaire est créé une seule fois, avec un identifiant propre à chaque site.
+ *
+ * @package Kekidi_Contact
+ */
+
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Crée ou retrouve le formulaire Contact.
+ *
+ * @return int
+ */
 function kekidi_contact_ensure_form(): int {
 	$id = (int) get_option( 'kekidi_contact_form_id' );
 	if ( $id && 'forminator_forms' === get_post_type( $id ) && 'trash' !== get_post_status( $id ) ) {

@@ -6,4 +6,13 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/verify-theme.php</exclude-pattern>
     <rule ref="WordPress"/>
+    <!-- Ces fonctions échappent les valeurs des attributs et du logo à la construction du HTML. -->
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <property name="customEscapingFunctions" type="array">
+                <element value="get_block_wrapper_attributes"/>
+                <element value="kekidi_scrutins_logo_html"/>
+            </property>
+        </properties>
+    </rule>
 </ruleset>

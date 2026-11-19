@@ -4,7 +4,10 @@
  * Slug: kekidi/header-contact
  * Categories: kekidi
  * Inserter: false
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"div","className":"site-header answer-header","layout":{"type":"default"}} -->

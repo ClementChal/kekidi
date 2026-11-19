@@ -4,7 +4,10 @@
  * Slug: kekidi/contact
  * Categories: kekidi
  * Block Types: core/post-content
+ *
+ * @package Kekidi_Contact
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"className":"contact-intro","layout":{"type":"default"}} -->

@@ -1,11 +1,26 @@
 <?php
+/**
+ * Stockage et API des instantanés de scrutin.
+ *
+ * @package Kekidi_Scrutins
+ */
+
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Lit un instantané associé à un article.
+ *
+ * @param int    $post_id Identifiant de l’article.
+ * @param string $id Identifiant de l’instantané.
+ *
+ * @return array|null
+ */
 function kekidi_scrutins_snapshot( int $post_id, string $id ): ?array {
 	if ( ! preg_match( '/^[a-f0-9]{64}$/D', $id ) ) {
 		return null; }
-	$post_id  = (int) ( wp_is_post_revision( $post_id ) ?: $post_id );
-	$snapshot = get_post_meta( $post_id, '_kekidi_scrutin_snapshot_' . $id, true );
+	$revision_parent_id = wp_is_post_revision( $post_id );
+	$post_id            = (int) ( $revision_parent_id ? $revision_parent_id : $post_id );
+	$snapshot           = get_post_meta( $post_id, '_kekidi_scrutin_snapshot_' . $id, true );
 	if ( is_array( $snapshot ) ) {
 		return $snapshot; }
 	// Compatibilité avec les premiers exemples locaux.
@@ -13,6 +28,15 @@ function kekidi_scrutins_snapshot( int $post_id, string $id ): ?array {
 	return is_array( $snapshots ) && isset( $snapshots[ $id ] ) ? $snapshots[ $id ] : null;
 }
 
+/**
+ * Enregistre et identifie un instantané immuable.
+ *
+ * @param int   $post_id Identifiant de l’article.
+ * @param array $snapshot Données du scrutin.
+ *
+ * @return string
+ * @throws RuntimeException Si l’instantané ne peut pas être enregistré.
+ */
 function kekidi_scrutins_store_snapshot( int $post_id, array $snapshot ): string {
 	$identity = $snapshot;
 	unset( $identity['retrievedAt'] );
@@ -23,6 +47,13 @@ function kekidi_scrutins_store_snapshot( int $post_id, array $snapshot ): string
 	return $id;
 }
 
+/**
+ * Vérifie le droit de modifier l’article demandé.
+ *
+ * @param WP_REST_Request $request Requête REST.
+ *
+ * @return bool|WP_Error
+ */
 function kekidi_scrutins_permission( WP_REST_Request $request ) {
 	$path    = $request->get_url_params();
 	$post_id = (int) ( 'GET' === $request->get_method() ? ( $path['post_id'] ?? 0 ) : $request['postId'] );
@@ -106,6 +137,13 @@ add_action(
 	}
 );
 
+/**
+ * Vérifie que les blocs explicatifs restent locaux.
+ *
+ * @param array $blocks Blocs à examiner.
+ *
+ * @return bool
+ */
 function kekidi_scrutins_local_explanation( array $blocks ): bool {
 	$origin = wp_parse_url( home_url(), PHP_URL_HOST );
 	foreach ( $blocks as $block ) {
@@ -146,6 +184,14 @@ add_filter(
 	}
 );
 
+/**
+ * Vérifie le contenu avant publication.
+ *
+ * @param string $content Contenu de l’article.
+ * @param int    $post_id Identifiant de l’article.
+ *
+ * @return string
+ */
 function kekidi_scrutins_content_error( string $content, int $post_id ): string {
 	$quizzes = array();
 	$visit   = static function ( array $blocks ) use ( &$visit, &$quizzes ): void {

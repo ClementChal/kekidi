@@ -7,7 +7,10 @@
  * Requires PHP: 7.4
  * Requires Plugins: forminator
  * License: GPL-2.0-or-later
+ *
+ * @package Kekidi_Contact
  */
+
 defined( 'ABSPATH' ) || exit;
 require_once __DIR__ . '/form.php';
 
@@ -37,7 +40,7 @@ add_action(
 add_filter(
 	'forminator_custom_form_submit_field_data',
 	function ( array $data, int $form_id ): array {
-		if ( $form_id === (int) get_option( 'kekidi_contact_form_id' ) ) {
+		if ( (int) get_option( 'kekidi_contact_form_id' ) === $form_id ) {
 			$data = array_values(
 				array_filter(
 					$data,

@@ -1,12 +1,18 @@
 <?php
+/**
+ * Rendu du bloc de quiz.
+ *
+ * @package Kekidi_Quiz
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 if ( kekidi_quiz_error( $attributes ) ) {
 	echo '<p class="quiz-error">Ce quiz est en préparation.</p>';
 	return;
 }
-$choices  = $attributes['choices'];
-$count    = count(
+$choices      = $attributes['choices'];
+$count        = count(
 	array_filter(
 		$choices,
 		static function ( array $choice ): bool {
@@ -14,11 +20,11 @@ $count    = count(
 		}
 	)
 );
-$multiple = $count > 1;
-$uid      = wp_unique_id( 'kekidi-quiz-' );
-$post_id  = (int) ( $block->context['postId'] ?? get_the_ID() );
+$multiple     = $count > 1;
+$uid          = wp_unique_id( 'kekidi-quiz-' );
+$quiz_post_id = (int) ( $block->context['postId'] ?? get_the_ID() );
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 'class' => 'kekidi-quiz' ) ); ?> data-kekidi-quiz data-quiz-key="<?php echo esc_attr( (string) $post_id ); ?>">
+<div <?php echo get_block_wrapper_attributes( array( 'class' => 'kekidi-quiz' ) ); ?> data-kekidi-quiz data-quiz-key="<?php echo esc_attr( (string) $quiz_post_id ); ?>">
 	<form class="quiz-form" data-quiz>
 		<fieldset aria-describedby="<?php echo esc_attr( $uid . 'instructions ' . $uid . 'error' ); ?>" aria-label="Choix de réponse">
 			<p class="quiz-instructions" id="<?php echo esc_attr( $uid . 'instructions' ); ?>"><?php echo $multiple ? 'Plusieurs réponses possibles.' : 'Une seule réponse possible.'; ?></p>

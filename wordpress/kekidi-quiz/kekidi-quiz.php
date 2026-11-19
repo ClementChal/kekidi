@@ -7,10 +7,19 @@
  * Requires PHP: 7.4
  * License: GPL-2.0-or-later
  * Text Domain: kekidi-quiz
+ *
+ * @package Kekidi_Quiz
  */
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Valide les propositions du quiz.
+ *
+ * @param array $attributes Attributs du bloc.
+ *
+ * @return string
+ */
 function kekidi_quiz_error( array $attributes ): string {
 	$choices = $attributes['choices'] ?? array();
 	if ( ! is_array( $choices ) || count( $choices ) < 1 || count( $choices ) > 5 ) {
@@ -26,6 +35,13 @@ function kekidi_quiz_error( array $attributes ): string {
 	return $correct ? '' : 'Indiquez au moins une bonne réponse.';
 }
 
+/**
+ * Indique si un article contient le bloc de quiz.
+ *
+ * @param int $post_id Identifiant de l’article.
+ *
+ * @return bool
+ */
 function kekidi_quiz_has_quiz( int $post_id ): bool {
 	return $post_id > 0 && has_block( 'kekidi/quiz', get_post_field( 'post_content', $post_id ) );
 }
@@ -48,6 +64,13 @@ add_action(
 	}
 );
 
+/**
+ * Vérifie le contenu avant publication.
+ *
+ * @param string $content Contenu de l’article.
+ *
+ * @return string
+ */
 function kekidi_quiz_content_error( string $content ): string {
 	$error   = '';
 	$count   = 0;
@@ -55,7 +78,7 @@ function kekidi_quiz_content_error( string $content ): string {
 		foreach ( $blocks as $item ) {
 			if ( 'kekidi/quiz' === $item['blockName'] ) {
 				++$count;
-				$error = $error ?: kekidi_quiz_error( $item['attrs'] );
+				$error = $error ? $error : kekidi_quiz_error( $item['attrs'] );
 			}
 			$inspect( $item['innerBlocks'] ?? array() );
 		}

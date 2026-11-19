@@ -7,7 +7,10 @@
  * Requires PHP: 7.4
  * License: GPL-2.0-or-later
  * Text Domain: kekidi-scrutins
+ *
+ * @package Kekidi_Scrutins
  */
+
 defined( 'ABSPATH' ) || exit;
 require_once __DIR__ . '/includes/data.php';
 require_once __DIR__ . '/includes/sources.php';
@@ -33,6 +36,13 @@ add_action(
 	}
 );
 
+/**
+ * Indique si un article contient le bloc de quiz.
+ *
+ * @param int $post_id Identifiant de l’article.
+ *
+ * @return bool
+ */
 function kekidi_scrutins_has_quiz( int $post_id ): bool {
 	return $post_id > 0 && has_block( 'kekidi/quiz-scrutin', get_post_field( 'post_content', $post_id ) );
 }

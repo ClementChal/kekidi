@@ -1,6 +1,20 @@
 <?php
+/**
+ * Normalisation des données de scrutin.
+ *
+ * @package Kekidi_Scrutins
+ */
+
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Valide un décompte entier.
+ *
+ * @param mixed $value Décompte à valider.
+ *
+ * @return int
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_integer( $value ): int {
 	if ( ( ! is_int( $value ) && ! is_string( $value ) ) || ! preg_match( '/^\d+$/D', (string) $value ) || (float) $value > 1000000 ) {
 		throw new InvalidArgumentException( 'Décompte absent ou invalide.' );
@@ -8,6 +22,15 @@ function kekidi_scrutins_integer( $value ): int {
 	return (int) $value;
 }
 
+/**
+ * Calcule les groupes majoritaires.
+ *
+ * @param array  $groups Groupes parlementaires.
+ * @param string $direction Sens du vote.
+ *
+ * @return array
+ * @throws InvalidArgumentException Si le sens du vote est invalide.
+ */
 function kekidi_scrutins_expected( array $groups, string $direction ): array {
 	if ( ! in_array( $direction, array( 'pour', 'contre' ), true ) ) {
 		throw new InvalidArgumentException( 'Choisissez « majoritairement pour » ou « majoritairement contre ».' );
@@ -29,10 +52,25 @@ function kekidi_scrutins_expected( array $groups, string $direction ): array {
 	);
 }
 
+/**
+ * Normalise le texte extrait de la source.
+ *
+ * @param string $text Texte extrait.
+ *
+ * @return string
+ */
 function kekidi_scrutins_text( string $text ): string {
 	return trim( preg_replace( '/\s+/u', ' ', str_replace( "\xc2\xa0", ' ', $text ) ) );
 }
 
+/**
+ * Prépare les requêtes XPath sur la source.
+ *
+ * @param string $html Page officielle.
+ *
+ * @return DOMXPath
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_document( string $html ): DOMXPath {
 	if ( ! class_exists( 'DOMDocument' ) ) {
 		throw new InvalidArgumentException( 'L’extension PHP DOM est nécessaire pour vérifier la page officielle.' ); }
@@ -49,6 +87,14 @@ function kekidi_scrutins_document( string $html ): DOMXPath {
 	return new DOMXPath( $document );
 }
 
+/**
+ * Normalise la date officielle du scrutin.
+ *
+ * @param string $text Texte extrait.
+ *
+ * @return string
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_date( string $text ): string {
 	$months = array( 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre' );
 	if ( ! preg_match( '/\b(\d{1,2})(?:er)? (' . implode( '|', $months ) . ') (20\d{2})\b/u', $text, $matches ) ) {
@@ -60,12 +106,29 @@ function kekidi_scrutins_date( string $text ): string {
 	return sprintf( '%04d-%02d-%02d', $matches[3], $month, $matches[1] );
 }
 
+/**
+ * Extrait un décompte à partir d’un motif.
+ *
+ * @param string $text Texte extrait.
+ * @param string $pattern Motif de recherche.
+ *
+ * @return int
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_match_count( string $text, string $pattern ): int {
 	if ( ! preg_match( $pattern, $text, $matches ) ) {
 		throw new InvalidArgumentException( 'Synthèse officielle absente ou incompatible.' ); }
 	return kekidi_scrutins_integer( $matches[1] );
 }
 
+/**
+ * Vérifie la cohérence des décomptes.
+ *
+ * @param array $groups Groupes parlementaires.
+ * @param array $totals Décomptes globaux.
+ * @param int   $voters Nombre de votants.
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_validate_totals( array $groups, array $totals, int $voters ): void {
 	$ids = array_column( $groups, 'id' );
 	if ( ! $groups || count( $groups ) > 80 || count( array_unique( $ids ) ) !== count( $ids ) ) {
@@ -81,6 +144,17 @@ function kekidi_scrutins_validate_totals( array $groups, array $totals, int $vot
 	}
 }
 
+/**
+ * Recoupe les décomptes de l’Assemblée avec la page officielle.
+ *
+ * @param array  $payload Données structurées de l’Assemblée.
+ * @param string $html Page officielle.
+ * @param int    $number Numéro du scrutin.
+ * @param string $period Législature ou session.
+ *
+ * @return array
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_normalize_assemblee( array $payload, string $html, int $number, string $period ): array {
 	$source = $payload['data']['sourceData'] ?? array();
 	if ( '17' !== $period || (string) ( $source['legislature'] ?? '' ) !== $period || kekidi_scrutins_integer( $source['numero'] ?? null ) !== $number || empty( $source['titre'] ) ) {

@@ -4,7 +4,10 @@
  * Slug: kekidi/reponse
  * Categories: kekidi
  * Inserter: true
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"section","className":"answer-panel","layout":{"type":"default"}} -->

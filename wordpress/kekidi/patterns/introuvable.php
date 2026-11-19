@@ -4,7 +4,10 @@
  * Slug: kekidi/introuvable
  * Categories: kekidi
  * Inserter: false
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"main","className":"not-found wrap","anchor":"contenu","layout":{"type":"default"}} -->

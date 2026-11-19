@@ -1,4 +1,10 @@
 <?php
+/**
+ * Intégration du thème Kekidi.
+ *
+ * @package Kekidi
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 add_action(

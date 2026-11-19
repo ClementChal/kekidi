@@ -4,7 +4,10 @@
  * Slug: kekidi/header-simple
  * Categories: kekidi
  * Inserter: false
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"div","className":"site-header","layout":{"type":"default"}} -->

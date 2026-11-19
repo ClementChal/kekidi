@@ -4,7 +4,10 @@
  * Slug: kekidi/accueil
  * Categories: kekidi
  * Inserter: true
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"section","className":"wrap hero-layout","layout":{"type":"default"}} -->

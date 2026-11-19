@@ -7,10 +7,15 @@
  * Requires PHP: 7.4
  * License: GPL-2.0-or-later
  * Text Domain: kekidi-super-editeur
+ *
+ * @package Kekidi_Super_Editeur
  */
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Enregistre le rôle Super éditeur.
+ */
 function kekidi_super_editeur_add_role(): void {
 	$editor = get_role( 'editor' );
 	if ( ! $editor ) {

@@ -4,7 +4,10 @@
  * Slug: kekidi/retour
  * Categories: kekidi
  * Inserter: false
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:buttons -->

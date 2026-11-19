@@ -1,6 +1,22 @@
 <?php
+/**
+ * Lecture des sources officielles.
+ *
+ * @package Kekidi_Scrutins
+ */
+
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Extrait les décomptes de la page du Sénat.
+ *
+ * @param string $html Page officielle.
+ * @param int    $number Numéro du scrutin.
+ * @param string $period Législature ou session.
+ *
+ * @return array
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_normalize_senate( string $html, int $number, string $period ): array {
 	if ( ! preg_match( '/^20\d{2}$/D', $period ) ) {
 		throw new InvalidArgumentException( 'Indiquez l’année de début de la session du Sénat.' ); }
@@ -66,6 +82,14 @@ function kekidi_scrutins_normalize_senate( string $html, int $number, string $pe
 	);
 }
 
+/**
+ * Récupère et contrôle la réponse de la source.
+ *
+ * @param string $url URL de la source.
+ *
+ * @return string
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_fetch( string $url ): string {
 	$response = wp_safe_remote_get(
 		$url,
@@ -88,6 +112,16 @@ function kekidi_scrutins_fetch( string $url ): string {
 	return $body;
 }
 
+/**
+ * Importe un scrutin depuis les sources contrôlées.
+ *
+ * @param string $chamber Chambre parlementaire.
+ * @param string $period Législature ou session.
+ * @param int    $number Numéro du scrutin.
+ *
+ * @return array
+ * @throws InvalidArgumentException Si les données ou la réponse ne satisfont pas les contrôles.
+ */
 function kekidi_scrutins_import( string $chamber, string $period, int $number ): array {
 	if ( $number < 1 || $number > 999999 ) {
 		throw new InvalidArgumentException( 'Le numéro doit contenir de 1 à 6 chiffres et être strictement positif.' ); }

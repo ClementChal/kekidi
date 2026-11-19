@@ -1,6 +1,17 @@
 <?php
+/**
+ * Présentation des données de scrutin.
+ *
+ * @package Kekidi_Scrutins
+ */
+
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Retourne les URL des logos embarqués.
+ *
+ * @return array
+ */
 function kekidi_scrutins_logo_urls(): array {
 	$files = array(
 		'PO845401' => 'rn',
@@ -28,6 +39,14 @@ function kekidi_scrutins_logo_urls(): array {
 	);
 }
 
+/**
+ * Construit le logo et son libellé de secours.
+ *
+ * @param array $group Données du groupe.
+ * @param array $logos Logos personnalisés.
+ *
+ * @return string
+ */
 function kekidi_scrutins_logo_html( array $group, array $logos ): string {
 	$defaults = kekidi_scrutins_logo_urls();
 	$custom   = array_key_exists( $group['id'], $logos );
@@ -37,6 +56,14 @@ function kekidi_scrutins_logo_html( array $group, array $logos ): string {
 	return '<span class="vote-emblem">' . ( $url ? '<img class="vote-party-logo" src="' . esc_url( $url ) . '" width="40" height="40" alt="" decoding="async">' : '' ) . $fallback . '</span>';
 }
 
+/**
+ * Formate la part d’un groupe.
+ *
+ * @param int $count Nombre de votes.
+ * @param int $total Nombre de participants.
+ *
+ * @return string
+ */
 function kekidi_scrutins_percentage( int $count, int $total ): string {
 	if ( ! $total ) {
 		return '—'; }
@@ -45,6 +72,14 @@ function kekidi_scrutins_percentage( int $count, int $total ): string {
 }
 
 
+/**
+ * Construit les blocs explicatifs initiaux.
+ *
+ * @param array  $snapshot Données du scrutin.
+ * @param string $direction Sens du vote.
+ *
+ * @return string
+ */
 function kekidi_scrutins_default_explanation( array $snapshot, string $direction ): string {
 	$groups       = array_values(
 		array_filter(

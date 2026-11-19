@@ -1,8 +1,14 @@
 <?php
+/**
+ * Rendu du bloc de quiz.
+ *
+ * @package Kekidi_Scrutins
+ */
+
 defined( 'ABSPATH' ) || exit;
-$post_id   = (int) ( $block->context['postId'] ?? get_the_ID() );
-$snapshot  = kekidi_scrutins_snapshot( $post_id, $attributes['snapshotId'] ?? '' );
-$direction = $attributes['direction'] ?? 'pour';
+$scrutin_post_id = (int) ( $block->context['postId'] ?? get_the_ID() );
+$snapshot        = kekidi_scrutins_snapshot( $scrutin_post_id, $attributes['snapshotId'] ?? '' );
+$direction       = $attributes['direction'] ?? 'pour';
 if ( ! $snapshot || ! in_array( $direction, array( 'pour', 'contre' ), true ) ) {
 	echo '<p class="quiz-error">Ce quiz est en préparation.</p>';
 	return;
@@ -17,11 +23,11 @@ $groups = array_values(
 	)
 );
 if ( 'assemblee' === $snapshot['chamber'] ) {
-	$order = array_flip( array( 'PO845514', 'PO845413', 'PO845439', 'PO845419', 'PO845485', 'PO845454', 'PO845407', 'PO845470', 'PO845425', 'PO872880', 'PO845401' ) );
+	$group_order = array_flip( array( 'PO845514', 'PO845413', 'PO845439', 'PO845419', 'PO845485', 'PO845454', 'PO845407', 'PO845470', 'PO845425', 'PO872880', 'PO845401' ) );
 	usort(
 		$groups,
-		static function ( array $a, array $b ) use ( $order ): int {
-			return ( $order[ $a['id'] ] ?? 99 ) <=> ( $order[ $b['id'] ] ?? 99 );
+		static function ( array $a, array $b ) use ( $group_order ): int {
+			return ( $group_order[ $a['id'] ] ?? 99 ) <=> ( $group_order[ $b['id'] ] ?? 99 );
 		}
 	);
 }
@@ -48,7 +54,7 @@ $majority_names = array_column(
 	'name'
 );
 $summary        = $majority_names ? implode( ', ', $majority_names ) . ( count( $majority_names ) > 1 ? ' ont voté' : ' a voté' ) . ' majoritairement ' . $direction . '.' : 'Aucun groupe n’a voté majoritairement ' . $direction . '.';
-$totals         = $snapshot['totals'];
+$vote_totals    = $snapshot['totals'];
 $non_inscrits   = array_values(
 	array_filter(
 		$snapshot['groups'],
@@ -64,7 +70,7 @@ while ( $links->next_tag( 'A' ) ) {
 	$links->set_attribute( 'rel', implode( ' ', array_unique( array_merge( $rels, array( 'noopener', 'noreferrer' ) ) ) ) );
 }
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 'class' => 'kekidi-vote-quiz' ) ); ?> data-kekidi-vote data-direction="<?php echo esc_attr( $direction ); ?>" data-quiz-key="<?php echo esc_attr( (string) $post_id ); ?>">
+<div <?php echo get_block_wrapper_attributes( array( 'class' => 'kekidi-vote-quiz' ) ); ?> data-kekidi-vote data-direction="<?php echo esc_attr( $direction ); ?>" data-quiz-key="<?php echo esc_attr( (string) $scrutin_post_id ); ?>">
 	<p class="vote-context"><?php echo esc_html( $chamber . ' · ' . $date ); ?></p>
 	<p class="vote-measure"><?php echo esc_html( $attributes['measure'] ?? '' ); ?></p>
 	<form class="quiz-form vote-form" data-vote-form>
@@ -96,7 +102,9 @@ while ( $links->next_tag( 'A' ) ) {
 				$values = 'Pour ' . kekidi_scrutins_percentage( $group['pour'], $total ) . ' · Contre ' . kekidi_scrutins_percentage( $group['contre'], $total ) . ' · Abstention ' . kekidi_scrutins_percentage( $group['abstention'], $total );
 				?>
 				<li class="vote-chart-row" data-chart-party="<?php echo esc_attr( $group['id'] ); ?>">
-					<div class="vote-chart-label"><?php echo kekidi_scrutins_logo_html( $group, $logos ); ?><div><h3><?php echo esc_html( $group['name'] ); ?></h3><p class="vote-comparison" data-comparison></p></div></div>
+					<div class="vote-chart-label">
+					<?php echo kekidi_scrutins_logo_html( $group, $logos ); ?>
+					<div><h3><?php echo esc_html( $group['name'] ); ?></h3><p class="vote-comparison" data-comparison></p></div></div>
 					<div class="vote-bar" role="img" aria-label="<?php echo esc_attr( $group['name'] . ' : ' . $values . '. ' . $total . ' participants.' ); ?>">
 						<?php foreach ( array( 'pour', 'contre', 'abstention' ) as $index => $category ) : ?>
 							<span class="vote-segment vote-segment-<?php echo (int) $index; ?>" style="width:<?php echo esc_attr( (string) ( $total ? $group[ $category ] * 100 / $total : 0 ) ); ?>%"></span>
@@ -110,7 +118,7 @@ while ( $links->next_tag( 'A' ) ) {
 		<section class="answer-detail vote-explanation">
 			<?php if ( empty( $attributes['editableExplanation'] ) ) : ?>
 			<h2>On vous explique.</h2>
-			<p><?php echo esc_html( $summary . ' Résultat du scrutin : ' . $totals['pour'] . ' votes pour, ' . $totals['contre'] . ' contre et ' . $totals['abstention'] . ' abstentions.' ); ?></p>
+			<p><?php echo esc_html( $summary . ' Résultat du scrutin : ' . $vote_totals['pour'] . ' votes pour, ' . $vote_totals['contre'] . ' contre et ' . $vote_totals['abstention'] . ' abstentions.' ); ?></p>
 			<?php endif; ?>
 			<div class="vote-editorial"><?php echo $links->get_updated_html(); ?></div>
 			<?php if ( empty( $attributes['editableExplanation'] ) ) : ?>

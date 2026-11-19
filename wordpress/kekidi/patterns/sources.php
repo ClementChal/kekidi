@@ -4,7 +4,10 @@
  * Slug: kekidi/sources
  * Categories: kekidi
  * Inserter: true
+ *
+ * @package Kekidi
  */
+
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"section","className":"sources","layout":{"type":"default"}} -->
