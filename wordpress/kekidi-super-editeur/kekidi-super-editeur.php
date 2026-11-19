@@ -17,11 +17,14 @@ function kekidi_super_editeur_add_role(): void {
 		return;
 	}
 
-	$capabilities = array_merge( $editor->capabilities, array(
-		'edit_theme_options'  => true,
-		'view_koko_analytics' => true,
-	) );
-	$role = get_role( 'super_editeur' );
+	$capabilities = array_merge(
+		$editor->capabilities,
+		array(
+			'edit_theme_options'  => true,
+			'view_koko_analytics' => true,
+		)
+	);
+	$role         = get_role( 'super_editeur' );
 
 	if ( ! $role ) {
 		add_role( 'super_editeur', 'Super éditeur', $capabilities );
