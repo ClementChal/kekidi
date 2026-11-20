@@ -28,7 +28,7 @@
 - [x] Vérifier correction, restauration, stockage indisponible, édition et droits, URL et rendu mobile/ordinateur.
 - [x] Documenter le parcours de test et laisser Studio accessible pour validation humaine.
 
-Preuves et parcours : [README de l’extension](../../kekidi-quiz/README.md). Relecture indépendante effectuée ; validation serveur renforcée pour les publications sans contenu dans la requête. Tests humains en attente, aucune archive produite.
+Preuves et parcours : [README de l’extension](../../../wordpress/kekidi-quiz/README.md). Relecture indépendante effectuée ; validation serveur renforcée pour les publications sans contenu dans la requête. Tests humains en attente, aucune archive produite.
 
 ## Points de contrôle
 

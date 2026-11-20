@@ -56,7 +56,7 @@ Le thème et les extensions déclarent WordPress 6.6 et PHP 7.4 comme minima ; c
 | Rôle Super éditeur | [kekidi-super-editeur.php](wordpress/kekidi-super-editeur/kekidi-super-editeur.php) |
 | Articles, pages et catégories du site | Administration WordPress et blocs Gutenberg |
 | Champs et labels du formulaire existant | Forminator ; la création initiale est définie dans [form.php](wordpress/kekidi-contact/form.php) |
-| Réponses initiales de démonstration | [reponses-kekidi.xml](wordpress/reponses-kekidi.xml) ; fixture de contrôle dans [reponses.json](wordpress/tests/fixtures/reponses.json) |
+| Réponses initiales de démonstration | [reponses-kekidi.xml](wordpress/demo-content/reponses-kekidi.xml) ; fixture de contrôle dans [reponses.json](wordpress/tests/fixtures/reponses.json) |
 | Règles visuelles | [DESIGN.md](DESIGN.md), [design-system.md](design-system.md), [brand-spec.md](brand-spec.md) |
 
 Les fichiers du thème sont les sources directement modifiables. Modifier la version dans l’en-tête de `style.css`, et les versions d’extensions dans leurs fichiers PHP principaux. Ne pas supprimer les dossiers `vendor/` embarqués dans les extensions : ils contiennent du code et des licences nécessaires.
@@ -88,6 +88,8 @@ Il vérifie la structure des blocs, les ressources et références du thème, le
 Les ZIP sont dans `dist/`, ignoré par Git. Les joindre à une Release GitHub pour une livraison identifiée et conservée.
 
 ## Installer et développer dans Studio
+
+Pour travailler avec les sources liées et le rechargement automatique du navigateur, suivre le [guide de développement local](wordpress/DEVELOPPEMENT-LOCAL.md#développer-avec-les-sources-liées). Les étapes ci-dessous servent à installer et vérifier les ZIP.
 
 Studio installe WordPress dans un dossier distinct du dépôt. Une modification des sources n’y est pas appliquée automatiquement. Installer le ZIP local par **Apparence → Thèmes → Ajouter/Téléverser** ou **Extensions → Ajouter/Téléverser**, en remplaçant l’élément existant sans le supprimer.
 

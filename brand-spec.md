@@ -16,6 +16,8 @@ Le fil conducteur visuel est **l’affiche citoyenne accueillante** : papier cr�
 
 Les valeurs de couleur, d’espacement et de géométrie sont centralisées dans [DESIGN.md](DESIGN.md) et [design-tokens.json](design-tokens.json). Le guide [design-system.md](design-system.md) précise leurs usages ; éviter de créer une seconde palette dans ce document.
 
+Les [exports graphiques](wordpress/kekidi/assets/design/) regroupent les médaillons SVG, le nuancier et la palette CSV. Les [logos et icônes](wordpress/kekidi/assets/logo/) restent disponibles dans le thème.
+
 ## Voix et contenus
 
 - Vouvoiement simple, phrases courtes, questions compréhensibles sans jargon.

@@ -1,36 +1,62 @@
 # Développer Kekidi avec WordPress Studio
 
-## Sources
+## Développer avec les sources liées
 
-Le thème se maintient directement dans `wordpress/kekidi/` : `style.css`, `theme.json`, `functions.php`, `templates/`, `parts/`, `patterns/` et `assets/`. Les quatre extensions possèdent leurs propres dossiers `wordpress/kekidi-*`. Aucun générateur de thème ni script Python n’est requis.
+Depuis la racine du dépôt :
 
-Lire [DESIGN.md](../DESIGN.md) avant de modifier la présentation. Les contenus éditoriaux, réglages, messages et instantanés de scrutins restent en base ; ne pas les remplacer pour tester une modification de code.
+```sh
+./scripts/dev-site.sh dev     # Démarre WordPress et le rechargement automatique
+./scripts/dev-site.sh start   # Démarre WordPress seul
+./scripts/dev-site.sh stop    # Arrête WordPress
+```
 
-## Préparer l’environnement
+[Site Studio](http://localhost:8885/) · [WP Admin](http://localhost:8885/wp-admin/) · [BrowserSync](http://127.0.0.1:3000/)
 
-Créer ou sélectionner un site Studio dédié aux tests. Studio fournit PHP et WP-CLI ; l’outil système `zip` doit être installé. Avec WP-CLI 2.12, installer le package `wp-cli/dist-archive-command:3.1.0`. Node 24 sert aux tests JavaScript. La configuration complète est décrite dans le [README](../README.md).
+Modifie le thème dans `wordpress/kekidi/` et les extensions dans `wordpress/kekidi-*/`. Les liens symboliques rendent ces changements accessibles à Studio dès la requête suivante. Si le port change, lance `./scripts/dev-site.sh dev http://localhost:PORT`. **Ctrl+C** arrête le rechargement. Utilise ensuite `stop` pour arrêter WordPress.
 
-## Modifier, empaqueter, installer
+Le site `~/Studio/kekidi-dev` autorise les fichiers externes pour suivre les liens. Évite de remplacer ou de supprimer les composants liés via WP Admin. Si un modèle ne change pas, vérifie les personnalisations enregistrées dans **Apparence → Éditeur**.
 
-1. Modifier les fichiers sources et augmenter la version dans `kekidi/style.css` ou le fichier PHP principal de l’extension concernée.
-2. Constituer les ZIP avec `dist-archive`, selon les commandes du README. Les livraisons sont dans `dist/`, avec leur version dans le nom ; ne pas écraser une archive publiée.
-3. Exécuter `eval-file /CHEMIN_DEPOT/wordpress/tests/distribution.php` avec l’outil Studio `wp_cli` sur le site de test. Les cinq ZIP doivent correspondre aux versions des sources.
-4. Installer les ZIP concernés avec remplacement, par l’administration ou l’outil `wp_cli` :
+## Contrôler les changements
 
-   ```text
-   theme install /CHEMIN_DEPOT/dist/kekidi-1.4.0.zip --force --activate
-   ```
+```sh
+git status --short
+git diff
+node wordpress/kekidi-quiz/tests/runtime.mjs
+composer install            # Première installation des outils PHP
+composer lint:wp
+```
 
-5. Exécuter les tests adaptés et vérifier dans l’éditeur et le navigateur. Valider les blocs modifiés avec `validate_blocks` avant publication.
+Tests dans WordPress, avec le site démarré :
 
-Le dépôt et le site installé sont distincts : une modification de fichier dans le dépôt ne met pas automatiquement Studio à jour. Ne pas réimporter le XML à chaque correction du thème.
+```sh
+repo="$PWD"
+dev="$HOME/Studio/kekidi-dev"
 
-## Préserver l’édition de contenu
+studio wp eval-file "$repo/wordpress/verify-theme.php" --path "$dev"
+studio wp eval-file "$repo/wordpress/kekidi-quiz/tests/wordpress.php" --path "$dev" --user=admin
+studio wp eval-file "$repo/wordpress/kekidi-scrutins/tests/wordpress.php" --path "$dev" --user=admin
+studio wp eval-file "$repo/wordpress/kekidi-scrutins/tests/data.php" --path "$dev" --skip-plugins=kekidi-scrutins --user=admin
+```
 
-Les changements de modèles, parties et styles faits dans l’Éditeur de site peuvent primer sur les fichiers du thème. Vérifier les personnalisations `wp_template` et `wp_template_part` avant une correction ; exporter et intégrer les changements utiles aux sources sans perdre les autres modifications éditoriales.
+[Test navigateur et paramètres Chromium](../README.md#contrôles-github-et-standards-php) · [Références de design](../DESIGN.md)
 
-## Livrer
+## Construire et tester les ZIP
 
-Après validation, sauvegarder la base et les fichiers du site cible puis remplacer les seuls ZIP concernés. Conserver les versions précédentes dans les Releases et une sauvegarde complète séparée. La commande d’archives n’effectue ni sauvegarde de site ni déploiement.
+Augmente la version du composant modifié. Lance les commandes sur **Kekidi Recette ZIP**, séparé du site lié. Exemple pour le thème, en adaptant `VERSION` :
 
-Les anciens ZIP et dossiers de backups locaux restent conservés. Les tests navigateur contiennent des URL et identifiants fixes : les adapter au site choisi. Exécuter aussi `eval-file /CHEMIN_DEPOT/wordpress/verify-theme.php` pour l’accueil, les cartes, les droits et la navigation.
+```sh
+repo="$PWD"
+recette="$HOME/Studio/kekidi-recette-zip"
+version=VERSION
+
+studio start --path "$recette" --skip-browser --skip-log-details
+studio wp package install wp-cli/dist-archive-command:3.1.0 --path "$recette"  # Une seule fois
+studio wp dist-archive "$repo/wordpress/kekidi" "$repo/dist/kekidi-$version.zip" --create-target-dir --path "$recette"
+studio wp eval-file "$repo/wordpress/tests/distribution.php" --path "$recette"
+studio wp theme install "$repo/dist/kekidi-$version.zip" --force --activate --path "$recette"
+studio stop --path "$recette"
+```
+
+Le contrôle de distribution attend les cinq ZIP. Pour une extension, utilise `studio wp plugin install CHEMIN_DU_ZIP --force --activate --path "$recette"`. Installe Forminator avant Kekidi Contact. Préserve les ZIP déjà publiés.
+
+[Commandes pour les cinq archives](../README.md#produire-une-livraison) · [Installation vierge](INSTALLATION-VIERGE.md)

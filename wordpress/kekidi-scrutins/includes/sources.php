@@ -59,7 +59,7 @@ function kekidi_scrutins_normalize_senate( string $html, int $number, string $pe
 	$summary_node = $xpath->query( '//h2[contains(concat(" ",normalize-space(@class)," ")," card-title ")]/../..' )->item( 0 );
 	if ( ! $summary_node ) {
 		throw new InvalidArgumentException( 'Synthèse du Sénat absente.' ); }
-	$text   = kekidi_scrutins_text( $summary_node->textContent );
+	$text   = kekidi_scrutins_text( $summary_node->textContent ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Propriété native de DOMNode.
 	$voters = kekidi_scrutins_match_count( $text, '/(\d+) votants/u' );
 	$totals = array(
 		'pour'       => kekidi_scrutins_match_count( $text, '/(\d+) pour/u' ),

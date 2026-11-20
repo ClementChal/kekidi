@@ -171,8 +171,8 @@ function kekidi_scrutins_normalize_assemblee( array $payload, string $html, int 
 		throw new InvalidArgumentException( 'Intitulé officiel absent ou incompatible.' ); }
 	$official_date = '';
 	foreach ( $xpath->query( '//h2' ) as $node ) {
-		if ( preg_match( '/séance du/u', $node->textContent ) ) {
-			$official_date = kekidi_scrutins_date( kekidi_scrutins_text( $node->textContent ) );
+		if ( preg_match( '/séance du/u', $node->textContent ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Propriété native de DOMNode.
+			$official_date = kekidi_scrutins_date( kekidi_scrutins_text( $node->textContent ) ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Propriété native de DOMNode.
 			break; }
 	}
 	if ( $date !== $official_date || ! preg_match( '/^20\d{2}-\d{2}-\d{2}$/D', $date ) ) {
@@ -188,7 +188,7 @@ function kekidi_scrutins_normalize_assemblee( array $payload, string $html, int 
 		);
 		$found  = false;
 		foreach ( $xpath->query( './ul/li/span', $node ) as $span ) {
-			$text = kekidi_scrutins_text( $span->textContent );
+			$text = kekidi_scrutins_text( $span->textContent ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Propriété native de DOMNode.
 			if ( preg_match( '/^(Pour|Contre|Abstention|Non votant)\s*:\s*(\d+)$/u', $text, $matches ) ) {
 				$key            = array(
 					'Pour'       => 'pour',

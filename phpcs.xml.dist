@@ -6,6 +6,10 @@
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/verify-theme.php</exclude-pattern>
     <rule ref="WordPress"/>
+    <!-- WordPress recherche ces fichiers à côté des scripts et exige le suffixe .asset.php. -->
+    <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+        <exclude-pattern>*/block/*.asset.php</exclude-pattern>
+    </rule>
     <!-- Ces fonctions échappent les valeurs des attributs et du logo à la construction du HTML. -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>

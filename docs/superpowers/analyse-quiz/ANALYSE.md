@@ -2,7 +2,7 @@
 
 **10 novembre 2026 · Proposition à valider**
 
-> Suite à cette analyse, une implémentation locale a été réalisée à la demande de l’utilisateur. Elle ajoute la conservation des choix dans localStorage et une consigne simple/multiple conditionnelle. Voir [le parcours de test et ses limites](../../kekidi-quiz/README.md). Les constats ci-dessous décrivent l’état avant implémentation ; aucun ZIP ni déploiement public n’a été effectué.
+> Suite à cette analyse, une implémentation locale a été réalisée à la demande de l’utilisateur. Elle ajoute la conservation des choix dans localStorage et une consigne simple/multiple conditionnelle. Voir [le parcours de test et ses limites](../../../wordpress/kekidi-quiz/README.md). Les constats ci-dessous décrivent l’état avant implémentation ; aucun ZIP ni déploiement public n’a été effectué.
 
 ## Recommandation
 

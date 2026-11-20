@@ -13,7 +13,7 @@ Ce guide complète [DESIGN.md](DESIGN.md), référence de l’identité, de la p
 | [style.css](wordpress/kekidi/style.css) | Styles effectivement livrés, avec adaptations finales |
 | [design-tokens.json](design-tokens.json) | Inventaire documentaire des 42 variables CSS de base |
 | [brand-spec.md](brand-spec.md) | Posture de marque et règles éditoriales |
-| [reponses-kekidi.xml](wordpress/reponses-kekidi.xml) | Trois réponses initiales à importer ; pas le contenu courant de la base |
+| [reponses-kekidi.xml](wordpress/demo-content/reponses-kekidi.xml) | Trois réponses initiales à importer ; pas le contenu courant de la base |
 | [Contact](wordpress/kekidi-contact/README.md), [Quiz](wordpress/kekidi-quiz/README.md), [Scrutins](wordpress/kekidi-scrutins/README.md) | Contrats des fonctionnalités et tests |
 
 Le CSS contient des surcharges successives ; conserver leur ordre. Pour connaître une valeur effective, lire la dernière règle applicable et les adaptations du thème, pas uniquement la déclaration initiale. Le JSON de tokens et le frontmatter de DESIGN.md ne sont pas des feuilles de style chargées à l’exécution.

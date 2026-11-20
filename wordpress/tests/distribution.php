@@ -71,7 +71,7 @@ foreach ( array( 'view_koko_analytics', 'edit_theme_options' ) as $capability ) 
 }
 
 $questions = json_decode( file_get_contents( __DIR__ . '/fixtures/reponses.json' ), true, 512, JSON_THROW_ON_ERROR );
-$xml = simplexml_load_file( $root . '/wordpress/reponses-kekidi.xml' );
+$xml = simplexml_load_file( $root . '/wordpress/demo-content/reponses-kekidi.xml' );
 $check( false !== $xml && count( $xml->channel->item ) === count( $questions ), 'Export initial incomplet' );
 $index = 0;
 foreach ( $xml->channel->item as $item ) {

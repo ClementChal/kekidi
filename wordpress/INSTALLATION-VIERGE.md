@@ -27,7 +27,7 @@ Les versions tierces ci-dessus décrivent le test effectué. Elles ne garantisse
 4. Installer et activer Forminator, par WPMU DEV. Pour reproduire exactement le test, utiliser la version 1.58.4 du répertoire WordPress.org.
 5. Installer et activer les ZIP `dist/kekidi-contact-2.0.0.zip`, `dist/kekidi-quiz-1.1.1.zip` et `dist/kekidi-scrutins-1.0.1.zip`. Activer Forminator avant Kekidi Contact.
 6. Facultatif : installer Koko Analytics et `dist/kekidi-super-editeur-1.0.0.zip` pour les statistiques et le rôle Super éditeur.
-7. Importer une seule fois `wordpress/reponses-kekidi.xml` via **Outils → Importer → WordPress**. L'importateur peut ensuite être désactivé. Le XML ajoute trois articles ; il ne crée pas de quiz de démonstration.
+7. Importer une seule fois `wordpress/demo-content/reponses-kekidi.xml` via **Outils → Importer → WordPress**. L'importateur peut ensuite être désactivé. Le XML ajoute trois articles ; il ne crée pas de quiz de démonstration.
 8. Créer une page **Accueil** et la définir comme page statique dans **Réglages → Lecture**. Avec Kekidi 1.4.0, le fichier `front-page.html` affiche directement la composition `kekidi/accueil` : laisser cette page vide. L'instruction ancienne demandant d'insérer « Accueil éditable » ne s'applique pas à cette version.
 9. Passer l'article d'exemple WordPress en brouillon. Choisir les permaliens personnalisés `/reponses/%postname%/`.
 10. Ouvrir l'administration avec un compte administrateur après activation de Kekidi Contact. Vérifier le formulaire **Contact Kekidi** dans Forminator. Il est créé avec un identifiant propre au nouveau site.
