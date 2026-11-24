@@ -14,6 +14,54 @@ add_action(
 	}
 );
 
+add_filter(
+	'block_categories_all',
+	function ( array $categories ): array {
+		array_unshift( $categories, array( 'slug' => 'kekidi', 'title' => 'Kekidi' ) );
+		return $categories;
+	}
+);
+
+add_filter(
+	'get_block_type_variations',
+	function ( array $variations, WP_Block_Type $block_type ): array {
+		if ( 'core/group' === $block_type->name ) {
+			$variations[] = array(
+				'name'        => 'kekidi-reponse-simple',
+				'title'       => 'Réponse simple',
+				'description' => 'Insérer un encadré de réponse courte et une section Explication et sources.',
+				'keywords'    => array( 'kekidi', 'réponse classique' ),
+				'category'    => 'kekidi',
+				'scope'       => array( 'inserter' ),
+				'attributes'  => array( 'layout' => array( 'type' => 'default' ) ),
+				'innerBlocks' => array( array( 'core/pattern', array( 'slug' => 'kekidi/reponse' ) ) ),
+			);
+		}
+		return $variations;
+	},
+	10,
+	2
+);
+
+add_action(
+	'enqueue_block_editor_assets',
+	function (): void {
+		if ( 'post' !== ( get_current_screen()->post_type ?? '' ) ) {
+			return;
+		}
+
+		wp_add_inline_script(
+			'wp-blocks',
+			<<<'JS'
+wp.hooks.addFilter('blocks.registerBlockType', 'kekidi/contact-form-inserter', (settings, name) => {
+	if (name !== 'forminator/forms') return settings;
+	return {...settings, supports: {...settings.supports, inserter: false}};
+});
+JS
+		);
+	}
+);
+
 add_action(
 	'after_setup_theme',
 	function () {

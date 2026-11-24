@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:paragraph --><!-- wp:paragraph -->
 <p>Des questions dans la rue. De la curiosité partout.</p>
 <!-- /wp:paragraph --><!-- wp:paragraph -->
-<p><a class="read-link footer-contact" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Une question ?</a></p>
+<p><a class="read-link footer-contact" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Nous contacter</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

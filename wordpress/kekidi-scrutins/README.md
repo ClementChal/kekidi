@@ -5,11 +5,11 @@ Quiz de scrutins pour les articles WordPress. Le thème fournit le design ; cett
 ## Créer un quiz
 
 1. **Articles → Ajouter un article**. Rédiger le titre de la question et enregistrer un brouillon.
-2. Insérer **Quiz scrutin**, ou **Compositions → Kekidi → Nouvelle réponse scrutin**.
+2. Insérer **Réponse scrutin** depuis le menu des blocs ou depuis **Compositions → Kekidi**.
 3. Choisir la chambre et le numéro. Assemblée : législature 17. Sénat : année de début de session, par exemple **2025** pour 2025–2026.
 4. Cliquer sur **Charger le scrutin**. Les groupes et les décomptes sont vérifiés avant enregistrement. Un message explique les anomalies ou les refus.
-5. Choisir **majoritairement pour** ou **majoritairement contre**, adapter la présentation de la mesure puis modifier l’explication dans les blocs Gutenberg. « On vous explique. » est un H2 modifiable ; le résumé, les sources et la méthode sont des textes initiaux que vous pouvez garder, modifier ou supprimer.
-6. Les logos par défaut viennent de la maquette. Un logo peut être remplacé par une image de la médiathèque, ou par le sigle du groupe.
+5. Choisir **majoritairement pour** ou **majoritairement contre**, adapter la présentation de la mesure puis modifier l’explication dans les blocs Gutenberg. **Explication et sources** est un titre H2 modifiable. Vous pouvez garder, modifier ou supprimer le résumé, les sources et la méthode proposés.
+6. Les cases **Proposer dans le quiz** sont cochées par défaut. Décochez un groupe pour le retirer des choix et du score. Tous les groupes restent dans le diagramme. Vous pouvez aussi remplacer le logo d’un groupe par une image de la médiathèque ou par son sigle.
 7. Utiliser **Prévisualiser**, tester les réponses, choisir une catégorie puis publier. Conserver ensuite le slug pour les QR codes imprimés.
 
 Un seul quiz par article. Ne pas y insérer la composition de réponse classique en plus. Les éditeurs disposent déjà des droits nécessaires ; aucun accès administrateur n’est requis pour importer.
@@ -18,7 +18,7 @@ Un seul quiz par article. Ne pas y insérer la composition de réponse classique
 
 - Un groupe est correct si son nombre de votes dans le sens choisi dépasse strictement la moitié des **pour + contre + abstentions**. Les non-votants sont exclus du dénominateur.
 - Les non-inscrits restent dans les totaux officiels, sans devenir un choix du quiz.
-- La validation est toujours possible, même sans sélection. Une sélection vide est juste uniquement lorsqu’aucun groupe n’atteint le seuil.
+- Une sélection vide est juste quand aucun groupe proposé n’atteint le seuil. Si tous les groupes sont retirés des choix, le bouton **Voir les résultats du scrutin** affiche directement le diagramme, sans calculer de score.
 - Après validation : résultat, groupes oubliés ou incorrects, graphique, effectifs, explication et source officielle.
 - Une réponse entièrement juste déclenche la même gerbe de 180 confettis que le quiz classique, aux couleurs du site. La bibliothèque est locale, sans CDN. Une seule gerbe par validation, désactivée avec la réduction des animations ; un échec décoratif ne bloque pas le résultat.
 - `localStorage["kekidi:quiz:<ID article>"]` contient uniquement `true` ou `false`. Une nouvelle validation remplace cette valeur. Le formulaire revient vierge au rechargement et aucun résultat n’est envoyé au serveur.
@@ -47,4 +47,4 @@ Tests PHP via le `wp_cli` de Studio, avec `eval-file <chemin>/tests/data.php` et
 
 `tests/browser.mjs` teste les exemples Studio à 1440, 390 et 320 px avec Chromium CDP sur le port 9223 : validation vide, résultat exact, rechargement, liens protégés, sigle de secours et import Gutenberg sans mutation du publié. Configurer les URL et les identifiants selon le [README du projet](../../README.md#contrôles-github-et-standards-php).
 
-La compatibilité réseau avec l’hébergement cible reste à vérifier avant livraison. Un refus d’import conserve les données existantes. Livrer le thème et `dist/kekidi-scrutins-1.0.1.zip` avec leurs versions correspondantes, selon la procédure du README à la racine.
+La compatibilité réseau avec l’hébergement cible reste à vérifier avant livraison. Un refus d’import conserve les données existantes. Livrer le thème et l’archive versionnée de Scrutins selon la [procédure de livraison](../../README.md#produire-une-livraison).

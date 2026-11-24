@@ -6,6 +6,6 @@
  */
 
 return array(
-	'dependencies' => array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-data' ),
-	'version'      => '1.0.1',
+	'dependencies' => array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element' ),
+	'version'      => '1.1.6',
 );

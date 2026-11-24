@@ -14,7 +14,7 @@ Le thème et les extensions se maintiennent directement dans leurs fichiers Word
    package install wp-cli/dist-archive-command:3.1.0
    ```
 
-4. Constituer les archives selon **Produire une livraison**, puis exécuter le test de distribution.
+4. Constituer et vérifier les archives selon **Produire une livraison**.
 5. Installer le thème, les extensions et les contenus en suivant [l’installation sur un WordPress vierge](wordpress/INSTALLATION-VIERGE.md). Installer **Forminator avant Kekidi Contact**.
 
 Les commandes WP-CLI ci-dessous sont les arguments `command` de l’outil MCP Studio `wp_cli` : cibler explicitement son site de test, remplacer `/CHEMIN_DEPOT` par le chemin absolu du dépôt, sans préfixe `wp`. Pour un WP-CLI installé dans le terminal, ajouter le préfixe `wp` ; son installation nécessite PHP CLI dans le PATH. La connexion MCP est décrite dans [MCP.md](wordpress/MCP.md).
@@ -29,11 +29,11 @@ La commande additionnelle est installée dans le compte utilisateur, pas dans Wo
 | WP-CLI | 2.12.0 | Installation, contrôles et distribution |
 | dist-archive-command | 3.1.0 | Package WP-CLI additionnel pour créer les ZIP |
 | Node.js | 24.18.0 | Tests JavaScript sans compilation |
-| Thème Kekidi | 1.4.0 | Présentation, modèles et compositions |
+| Thème Kekidi | 1.4.9 | Présentation, modèles et compositions |
 | Kekidi Contact | 2.0.0 | Création du formulaire et adaptation au thème |
 | Forminator (`forminator`) | 1.58.4 | Dépendance obligatoire de Contact, installée séparément |
-| Kekidi Quiz | 1.1.1 | Bloc de quiz classique et correction |
-| Kekidi Scrutins | 1.0.1 | Bloc de scrutin, import contrôlé et instantanés |
+| Kekidi Quiz | 1.1.6 | Bloc de quiz classique et correction |
+| Kekidi Scrutins | 1.0.5 | Bloc de scrutin, import contrôlé et instantanés |
 | Kekidi Super éditeur | 1.0.0 | Rôle optionnel avec accès à l’Éditeur de site |
 | Koko Analytics (`koko-analytics`) | 2.5.3 | Statistiques optionnelles, installées séparément |
 | WordPress Importer | 0.9.7 | Import initial du XML, puis désactivation |
@@ -65,19 +65,15 @@ Le XML est un jeu initial indépendant du thème. Le modifier ne met à jour auc
 
 ## Produire une livraison
 
-Depuis Studio, exécuter les cinq commandes suivantes avec le chemin du dépôt. Les noms incluent les versions actuelles ; les adapter après une modification de code :
+Depuis Studio, exécuter cette commande avec le chemin du dépôt :
 
 ```text
-dist-archive /CHEMIN_DEPOT/wordpress/kekidi /CHEMIN_DEPOT/dist/kekidi-1.4.0.zip --create-target-dir
-dist-archive /CHEMIN_DEPOT/wordpress/kekidi-contact /CHEMIN_DEPOT/dist/kekidi-contact-2.0.0.zip --create-target-dir
-dist-archive /CHEMIN_DEPOT/wordpress/kekidi-quiz /CHEMIN_DEPOT/dist/kekidi-quiz-1.1.1.zip --create-target-dir
-dist-archive /CHEMIN_DEPOT/wordpress/kekidi-scrutins /CHEMIN_DEPOT/dist/kekidi-scrutins-1.0.1.zip --create-target-dir
-dist-archive /CHEMIN_DEPOT/wordpress/kekidi-super-editeur /CHEMIN_DEPOT/dist/kekidi-super-editeur-1.0.0.zip --create-target-dir
+eval-file /CHEMIN_DEPOT/scripts/build-zips.php
 ```
 
-Chaque composant possède un `.distignore` pour exclure tests, README de développement, configurations locales et dépendances de développement. Les ressources, bibliothèques et licences embarquées restent incluses. Ne pas écraser une livraison publiée : augmenter la version, conserver le ZIP précédent et omettre `--force`. Si l’archive existe déjà, WP-CLI demande confirmation ; l’appel MCP sans entrée interactive échoue sans la remplacer. Pour un essai local non publié, déplacer l’archive avant de la reconstruire.
+La commande lit les versions dans les sources et génère les ZIP manquants à l’aide des fichiers `.distignore` de chaque composant. Elle valide les cinq archives avant de déplacer leurs versions antérieures dans `dist/backup/`. Les fichiers déjà présents dans ce dossier sont conservés. Si une archive de la version courante existe et diffère des sources, augmenter la version du composant.
 
-La création des archives ne lance pas les tests, ne produit pas une sauvegarde de base, n’installe rien dans Studio et ne déploie rien en production. Exécuter ensuite le contrôle :
+Pour relancer uniquement le contrôle de distribution :
 
 ```text
 eval-file /CHEMIN_DEPOT/wordpress/tests/distribution.php
@@ -96,8 +92,8 @@ Studio installe WordPress dans un dossier distinct du dépôt. Une modification 
 Exemples via l’outil `wp_cli`, ciblé sur son site de test :
 
 ```text
-theme install /CHEMIN_DEPOT/dist/kekidi-1.4.0.zip --force --activate
-plugin install /CHEMIN_DEPOT/dist/kekidi-quiz-1.1.1.zip --force --activate
+theme install /CHEMIN_DEPOT/dist/kekidi-1.4.9.zip --force --activate
+plugin install /CHEMIN_DEPOT/dist/kekidi-quiz-1.1.6.zip --force --activate
 ```
 
 Pour une installation neuve : page **Accueil** vide choisie dans **Réglages → Lecture** ; le modèle rend directement la composition `kekidi/accueil`. Importer le XML une seule fois, passer l’article d’exemple en brouillon et régler les permaliens `/reponses/%postname%/`.
@@ -177,7 +173,7 @@ Les thèmes, extensions et bibliothèques embarquées ne se mettent pas tous à 
 
 ## Sauvegardes, Git et contribution
 
-La commande d’archives ne crée pas de copie automatique de l’ancien ZIP : les noms versionnés et l’absence de `--force` protègent les livraisons existantes. Conserver les ZIP publiés dans les Releases et les sauvegardes complètes sur un support distinct. Les dossiers locaux `wordpress/themes/backups/` et `wordpress/extensions/backups/` peuvent contenir des archives conservées ; ils ne sont pas utilisés par la nouvelle procédure et ne sont pas supprimés.
+Les anciennes archives locales sont rangées dans `dist/backup/`. Conserver les ZIP publiés dans les Releases et les sauvegardes de base et de fichiers sur un support distinct.
 
 Le `.gitignore` exclut `dist/`, ZIP, backups, bases, médias, caches, logs et configurations sensibles usuelles. Versionner les sources du thème et des extensions, `.distignore`, ressources, licences, tests et documentation. Ne pas ajouter mots de passe, clés, bases de production ni messages réels. Examiner les fichiers avant publication : les exclusions ne constituent pas un audit des secrets. Les dépendances conservent leurs licences ; aucune licence globale du dépôt n’est encore fournie.
 

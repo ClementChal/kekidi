@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Kekidi — Scrutins
  * Description: Quiz de votes de l’Assemblée nationale et du Sénat, avec import contrôlé et données conservées dans WordPress.
- * Version: 1.0.1
+ * Version: 1.0.5
  * Requires at least: 6.6
  * Requires PHP: 7.4
  * License: GPL-2.0-or-later
@@ -26,7 +26,7 @@ add_action(
 		register_block_pattern(
 			'kekidi/reponse-scrutin',
 			array(
-				'title'       => 'Nouvelle réponse scrutin',
+				'title'       => 'Réponse scrutin',
 				'description' => 'Importer un scrutin puis préparer un quiz « majoritairement pour » ou « majoritairement contre ».',
 				'categories'  => array( 'kekidi' ),
 				'postTypes'   => array( 'post' ),

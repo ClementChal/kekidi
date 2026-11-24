@@ -24,23 +24,35 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:group --><!-- wp:group {"tagName":"div","className":"poster-area","layout":{"type":"default"}} -->
 <div class="wp-block-group poster-area"><!-- wp:group {"tagName":"div","className":"poster","layout":{"type":"default"}} -->
 <div class="wp-block-group poster"><!-- wp:group {"tagName":"div","className":"poster-top","layout":{"type":"default"}} -->
-<div class="wp-block-group poster-top"><!-- wp:paragraph -->
-<p><strong>Kekidi?!</strong></p>
-<!-- /wp:paragraph --><!-- wp:paragraph -->
-<p>On se pose la question.</p>
+<div class="wp-block-group poster-top"><!-- wp:paragraph {"className":"brand-symbol poster-logo"} -->
+<p class="brand-symbol poster-logo">?!</p>
+<!-- /wp:paragraph --><!-- wp:paragraph {"className":"poster-tagline"} -->
+<p class="poster-tagline">On se pose la question</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --><!-- wp:paragraph {"className":"poster-question"} -->
-<p class="poster-question">À qui appartient l’espace public ?</p>
-<!-- /wp:paragraph --><!-- wp:group {"tagName":"div","className":"poster-bottom","layout":{"type":"default"}} -->
+<p class="poster-question">Quelles sont les missions de la Police ?</p>
+<!-- /wp:paragraph --><!-- wp:list {"ordered":true,"className":"poster-choices"} -->
+<ol class="wp-block-list poster-choices"><!-- wp:list-item -->
+<li>Garantir la sécurité publique</li>
+<!-- /wp:list-item --><!-- wp:list-item -->
+<li>Défendre les institutions</li>
+<!-- /wp:list-item --><!-- wp:list-item -->
+<li>Protéger les biens des possédants privés</li>
+<!-- /wp:list-item --><!-- wp:list-item -->
+<li>Entretenir une relation empreinte de courtoisie avec la population</li>
+<!-- /wp:list-item --><!-- wp:list-item -->
+<li>Découvrir les auteurs de crimes</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list --><!-- wp:group {"tagName":"div","className":"poster-bottom","layout":{"type":"default"}} -->
 <div class="wp-block-group poster-bottom"><!-- wp:paragraph -->
-<p>Une question croisée dans la rue.<br>Une discussion qui commence.</p>
-<!-- /wp:paragraph --><!-- wp:paragraph {"className":"poster-stamp"} -->
-<p class="poster-stamp">À vous de voir.</p>
+<p>Les réponses<br>et les sources.</p>
+<!-- /wp:paragraph --><!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"poster-qr"} -->
+<figure class="wp-block-image size-full poster-qr"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/affiche-qr-illustratif.svg' ) ); ?>" alt=""/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group --><!-- wp:paragraph {"className":"poster-signature"} -->
+<p class="poster-signature">Une initiative citoyenne</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
-<!-- /wp:group --><!-- wp:paragraph {"className":"poster-caption"} -->
-<p class="poster-caption">Ça commence par une question. Et vous ?</p>
-<!-- /wp:paragraph --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group --><!-- wp:group {"tagName":"section","className":"question-section","anchor":"questions","layout":{"type":"default"}} -->
 <section id="questions" class="wp-block-group question-section"><!-- wp:group {"tagName":"div","className":"wrap","layout":{"type":"default"}} -->

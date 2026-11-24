@@ -112,7 +112,7 @@ function kekidi_scrutins_default_explanation( array $snapshot, string $direction
 	$paragraph    = static function ( string $html ): string {
 		return '<!-- wp:paragraph --><p>' . $html . '</p><!-- /wp:paragraph -->';
 	};
-	$blocks       = '<!-- wp:heading --><h2 class="wp-block-heading">On vous explique.</h2><!-- /wp:heading -->';
+	$blocks       = '<!-- wp:heading --><h2 class="wp-block-heading">Explication et sources</h2><!-- /wp:heading -->';
 	$blocks      .= $paragraph( esc_html( $summary . ' Résultat du scrutin : ' . $totals['pour'] . ' votes pour, ' . $totals['contre'] . ' contre et ' . $totals['abstention'] . ' abstentions.' ) );
 	$note         = count( $groups ) . ' groupes sont représentés.';
 	if ( $non_inscrits ) {

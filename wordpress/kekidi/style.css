@@ -1,7 +1,7 @@
 /*
 Theme Name: Kekidi
 Description: Le thème à blocs du collectif Kekidi?! — questions dans la rue, réponses ici.
-Version: 1.4.0
+Version: 1.4.9
 Requires at least: 6.6
 Requires PHP: 7.4
 Text Domain: kekidi
@@ -21,6 +21,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
   --surface-action:oklch(from #B5E6D3 l c h);--surface-note:oklch(from #FFE89A l c h);--surface-info:oklch(from #B5DBFF l c h);
   --font-display:'Nunito','Trebuchet MS',sans-serif;--font-body:'DM Sans',Verdana,sans-serif;--font-mono:ui-monospace,monospace;
   --text-small:.8125rem;--text-body:1rem;--text-lead:1.25rem;--text-title:clamp(2rem,4vw,3rem);--text-display:clamp(2.75rem,5.5vw,5rem);
+  --reading-size:1.125rem;--reading-line-height:1.65;--reading-h2-size:1.5rem;
   --space-1:.5rem;--space-2:1rem;--space-3:1.5rem;--space-4:2rem;--space-5:3rem;--space-6:5rem;
   --radius-control:999px;--radius-card:1.5rem;--radius-panel:2rem;--line:2px solid var(--border);
   --shadow:5px 5px 0 var(--border);--shadow-large:8px 8px 0 var(--border);--ease:cubic-bezier(.23,1, .32,1);
@@ -38,8 +39,21 @@ a{color:inherit;text-underline-offset:.25em}button,a{-webkit-tap-highlight-color
 .hero-layout{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--space-5);align-items:center;padding-block:4.5rem 4rem}.hero-copy h1{font-size:var(--text-display);max-width:14ch}.highlight{display:inline-block;position:relative;isolation:isolate}.highlight:after{content:'';position:absolute;left:-.08em;right:-.06em;bottom:.03em;height:.26em;z-index:-1;background:var(--surface-action);transform:rotate(-1.5deg);border-radius:.1em}
 .hero-copy p{margin-block:var(--space-3) var(--space-4);max-width:38ch;color:var(--muted);font-size:1.0625rem}.wp-element-button{height:auto;min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:.8rem 1.4rem;border:var(--line);border-radius:var(--radius-control);box-shadow:var(--shadow);background:var(--surface);color:var(--fg);font:600 .9375rem/1.4 var(--font-body);letter-spacing:.02em;text-decoration:none;white-space:normal;text-align:center;transition:transform 200ms var(--ease),box-shadow 200ms var(--ease),background 200ms var(--ease)}
 .wp-element-button{background:var(--surface-action)}.wp-element-button:hover{transform:translate(-1px,-2px);box-shadow:7px 7px 0 var(--border);background:var(--surface-note)}.wp-element-button:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--border)}.arrow{width:21px;height:21px;flex-shrink:0}
-.poster-area{position:relative;padding:12px 20px 18px 14px}.poster{background:var(--accent);border:var(--line);border-radius:var(--radius-panel);box-shadow:var(--shadow-large);padding:var(--space-4);transform:rotate(3deg);min-height:370px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-3)}
-.poster-top{display:flex;justify-content:space-between;gap:var(--space-2);align-items:center;font-size:var(--text-small);font-weight:600}.poster-top b{font:800 1.375rem var(--font-display)}.poster-question{font:800 clamp(2rem,3.5vw,3rem)/1.1 var(--font-display);letter-spacing:-.03em;max-width:12ch;text-align:center;align-self:center;text-wrap:balance}.poster-bottom{border-top:var(--line);padding-top:var(--space-2);display:flex;justify-content:space-between;gap:var(--space-3);align-items:center;font-size:.875rem}.poster-bottom span{max-width:20ch}.poster-stamp{border:var(--line);background:var(--surface-note);border-radius:var(--radius-control);padding:.3rem .7rem;font-size:var(--text-small);white-space:nowrap}.poster-caption{margin-top:var(--space-3);text-align:center;color:var(--muted);font-size:var(--text-small)}
+.poster-area{width:100%;max-width:440px;justify-self:center;padding:12px 20px 18px 14px}
+.poster{background:var(--accent);border:var(--line);border-radius:.5rem;box-shadow:var(--shadow-large);padding:var(--space-3) var(--space-3) var(--space-2);transform:rotate(3deg);display:flex;flex-direction:column;gap:var(--space-2)}
+.poster-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);margin-bottom:-.25rem}
+.poster .poster-logo{width:28px;height:28px;font:800 1.125rem/1 var(--font-display);flex-shrink:0}
+.poster-tagline{font-size:.6875rem;line-height:1.5;letter-spacing:.01em;text-align:right}
+.poster-question{font:800 clamp(1.5rem,1.2rem + .8vw,1.875rem)/1.15 var(--font-display);letter-spacing:-.025em;text-align:center;align-self:center;text-wrap:balance;max-width:23ch;overflow-wrap:break-word}
+.poster-choices{list-style:upper-alpha outside;margin:0;padding-inline-start:1.7em;font-size:.875rem;line-height:1.4}
+.poster-choices li{padding-inline-start:.2em}
+.poster-choices li+li{margin-top:.45rem}
+.poster-choices li::marker{font-weight:600}
+.poster-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:var(--space-1);display:flex;justify-content:space-between;gap:var(--space-2);align-items:center;font-weight:600;font-size:1rem;line-height:1.3;border-radius:.25rem}
+.poster-bottom>p{max-width:17ch}
+.poster-bottom .poster-qr{width:52px;aspect-ratio:1;flex-shrink:0;margin:0;padding:4px;border:1px solid var(--border);border-radius:.5rem}
+.poster-qr img{display:block;width:100%;height:auto}
+.poster-signature{margin-top:-.25rem;font-size:.6875rem;letter-spacing:.01em;text-align:center}
 .question-section{padding-block:var(--space-4) var(--space-6);border-top:var(--line)}.section-heading{display:flex;justify-content:space-between;gap:var(--space-3);align-items:end;margin-bottom:var(--space-4)}.section-heading h2{font-size:2rem}.section-heading p{font-size:.875rem;color:var(--muted);max-width:33ch;text-align:right}
 .questions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3)}.question-card{display:flex;flex-direction:column;align-items:start;background:var(--surface);border:var(--line);border-radius:var(--radius-card);box-shadow:var(--shadow);padding:var(--space-3);min-width:0;gap:var(--space-3)}
 .badge{display:inline-flex;gap:.4rem;align-items:center;min-height:28px;height:auto;padding:.2rem .7rem;border:1px solid var(--border);border-radius:var(--radius-control);font:600 .75rem/1.5 var(--font-body);letter-spacing:.02em;background:var(--surface-note);color:var(--fg)}.question-card:nth-child(2) .badge{background:var(--surface-action)}.question-card:nth-child(3) .badge{background:var(--surface-info)}.question-card h3{font-size:1.625rem;max-width:20ch}.card-foot{margin-top:auto;padding-top:var(--space-2);width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--space-2)}.example-label{font-size:var(--text-small);color:var(--muted)}.read-link{min-height:44px;display:inline-flex;align-items:center;gap:.5rem;font-size:.875rem;font-weight:600}.read-link:hover .arrow{transform:translateX(3px)}.arrow{transition:transform 200ms var(--ease)}
@@ -48,23 +62,34 @@ a{color:inherit;text-underline-offset:.25em}button,a{-webkit-tap-highlight-color
 .site-footer{border-top:var(--line);padding-block:var(--space-4)}.footer-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);font-size:var(--text-small);color:var(--muted)}.footer-brand{font:800 1.5rem var(--font-display);letter-spacing:-.03em;color:var(--fg)}
 .answer-header .navigation{gap:var(--space-2)}.answer-wrap{max-width:900px;margin-inline:auto;padding:var(--space-5) var(--space-4) var(--space-6)}.answer-question{font-size:clamp(1.5rem,3.2vw,2rem);max-width:30ch;margin-bottom:var(--space-3)}.answer-panel{border:var(--line);border-radius:var(--radius-panel);background:var(--surface-note);box-shadow:var(--shadow-large);padding:var(--space-4);margin-bottom:var(--space-5)}.answer-panel .example-label{color:var(--fg);display:block;margin-bottom:var(--space-2)}.short-answer{font:800 clamp(2.5rem,6.5vw,4.5rem)/1.06 var(--font-display);letter-spacing:-.03em;text-wrap:balance;max-width:17ch;overflow-wrap:anywhere}.answer-detail h2{font-size:1.5rem;margin-bottom:var(--space-2)}.answer-detail p{color:var(--muted)}.sources{margin-block:var(--space-4);padding-block:var(--space-3);border-block:var(--line)}.sources h2{font-size:1.25rem;margin-bottom:var(--space-1)}.sources p{font-size:.9375rem;color:var(--muted)}.sources li{margin-block:.75rem}.sources a{overflow-wrap:anywhere}.answer-next{margin-top:var(--space-5);display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);flex-wrap:wrap}.answer-note{font-size:var(--text-small);color:var(--muted);max-width:50ch;margin-top:var(--space-3)}
 @media(min-width:1500px){.hero-layout{padding-block:5rem}.wrap{max-width:1280px}}
-@media(max-width:800px){.wrap{padding-inline:var(--space-3)}.hero-layout{gap:var(--space-3);padding-block:var(--space-5)}.hero-copy h1{font-size:clamp(2.6rem,6vw,3.5rem)}.poster{min-height:330px;padding:var(--space-3)}.questions-grid{grid-template-columns:1fr}.question-card{display:grid;grid-template-columns:1fr auto;gap:var(--space-2);min-height:0}.question-card h3{grid-row:2;grid-column:1/-1;max-width:35ch}.card-foot{grid-row:3;grid-column:1/-1;padding-top:0}.how-layout{grid-template-columns:1fr;gap:var(--space-4)}.how-layout h2{max-width:25ch}.collective{gap:var(--space-4)}.navigation{gap:var(--space-3)}}
-@media(max-width:600px){.wrap{padding-inline:20px}.site-header{padding-block:var(--space-2)}.brand{font-size:1.625rem;gap:.4rem}.brand-symbol{width:32px;height:32px;font-size:1.25rem}.navigation{gap:.75rem}.navigation a{font-size:.75rem}.navigation .nav-pill{padding:0 .8rem}.navigation .collective-nav{display:none}.hero-layout{grid-template-columns:1fr;padding-block:var(--space-5);gap:var(--space-4)}.hero-copy h1{font-size:clamp(2.6rem,10.5vw,3.7rem);max-width:16ch}.hero-copy p{font-size:1rem;margin-block:var(--space-3)}.poster-area{padding:10px 16px}.poster{min-height:320px;max-width:370px;margin-inline:auto;padding:var(--space-3)}.poster-question{font-size:2.6rem}.poster-caption{margin-top:var(--space-3)}.question-section{padding-block:var(--space-4) var(--space-5)}.section-heading{align-items:start;flex-direction:column;gap:var(--space-1)}.section-heading p{text-align:left}.section-heading h2,.how-layout h2,.collective h2{font-size:1.75rem}.question-card{padding:1.25rem}.question-card h3{font-size:1.5rem}.steps{grid-template-columns:1fr;gap:var(--space-3)}.steps li{display:grid;grid-template-columns:38px 1fr;column-gap:var(--space-2)}.step-number{grid-row:1/3;margin:0}.steps h3{margin:0}.steps p{grid-column:2}.collective{grid-template-columns:1fr;padding-block:var(--space-5);gap:var(--space-3)}.footer-row{align-items:start;flex-direction:column;gap:var(--space-1)}.answer-wrap{padding:var(--space-3) 20px var(--space-5)}.answer-question{font-size:1.5rem;margin-bottom:var(--space-2)}.answer-panel{padding:var(--space-3);margin-bottom:var(--space-4);border-radius:var(--radius-card)}.short-answer{font-size:clamp(2.5rem,11vw,3.5rem)}.answer-header .brand-symbol{display:none}.answer-header .navigation a{font-size:.75rem}.answer-next{margin-top:var(--space-4)}}
+@media(max-width:800px){.wrap{padding-inline:var(--space-3)}.hero-layout{gap:var(--space-3);padding-block:var(--space-5)}.hero-copy h1{font-size:clamp(2.6rem,6vw,3.5rem)}.questions-grid{grid-template-columns:1fr}.question-card{display:grid;grid-template-columns:1fr auto;gap:var(--space-2);min-height:0}.question-card h3{grid-row:2;grid-column:1/-1;max-width:35ch}.card-foot{grid-row:3;grid-column:1/-1;padding-top:0}.how-layout{grid-template-columns:1fr;gap:var(--space-4)}.how-layout h2{max-width:25ch}.collective{gap:var(--space-4)}.navigation{gap:var(--space-3)}}
+@media(max-width:600px){.wrap{padding-inline:20px}.site-header{padding-block:var(--space-2)}.brand{font-size:1.625rem;gap:.4rem}.brand-symbol{width:32px;height:32px;font-size:1.25rem}.navigation{gap:.75rem}.navigation a{font-size:.75rem}.navigation .nav-pill{padding:0 .8rem}.navigation .collective-nav{display:none}.hero-layout{grid-template-columns:1fr;padding-block:var(--space-5);gap:var(--space-4)}.hero-copy h1{font-size:clamp(2.6rem,10.5vw,3.7rem);max-width:16ch}.hero-copy p{font-size:1rem;margin-block:var(--space-3)}.question-section{padding-block:var(--space-4) var(--space-5)}.section-heading{align-items:start;flex-direction:column;gap:var(--space-1)}.section-heading p{text-align:left}.section-heading h2,.how-layout h2,.collective h2{font-size:1.75rem}.question-card{padding:1.25rem}.question-card h3{font-size:1.5rem}.steps{grid-template-columns:1fr;gap:var(--space-3)}.steps li{display:grid;grid-template-columns:38px 1fr;column-gap:var(--space-2)}.step-number{grid-row:1/3;margin:0}.steps h3{margin:0}.steps p{grid-column:2}.collective{grid-template-columns:1fr;padding-block:var(--space-5);gap:var(--space-3)}.footer-row{align-items:start;flex-direction:column;gap:var(--space-1)}.answer-wrap{padding:var(--space-3) 20px var(--space-5)}.answer-question{font-size:1.5rem;margin-bottom:var(--space-2)}.answer-panel{padding:var(--space-3);margin-bottom:var(--space-4);border-radius:var(--radius-card)}.short-answer{font-size:clamp(2.5rem,11vw,3.5rem)}.answer-header .brand-symbol{display:none}.answer-header .navigation a{font-size:.75rem}.answer-next{margin-top:var(--space-4)}}
 @media(max-width:600px){.header-row{flex-wrap:wrap;gap:var(--space-1)}.navigation{width:100%;justify-content:space-between}.answer-header .header-row{flex-wrap:nowrap;gap:var(--space-1)}.answer-header .navigation{width:auto}.answer-header .nav-pill{padding-inline:.65rem;gap:.35rem}}
 /* Pages de réponse : lecture en extérieur et navigation tactile. */
 .answer-wrap{max-width:820px;min-width:0}
 .answer-question{line-height:1.25;margin-bottom:var(--space-3);overflow-wrap:break-word}
 .answer-panel{padding:clamp(var(--space-3),5vw,var(--space-5))}
 .answer-panel .short-answer{line-height:1.12;hyphens:auto;overflow-wrap:break-word}
-.answer-detail p{font-size:1.125rem;line-height:1.65;color:var(--fg);overflow-wrap:break-word}
+.answer-detail p{font-size:var(--reading-size);line-height:var(--reading-line-height);color:var(--fg);overflow-wrap:break-word}
 .answer-detail p+p{margin-top:var(--space-2)}
 .answer-detail h2{margin-bottom:var(--space-2)}
 :root{--link-underline:color-mix(in oklch,var(--surface-action) 35%,var(--fg));--link-visited:color-mix(in oklch,var(--accent) 35%,var(--fg))}
-.answer-detail a{color:var(--fg);background-color:var(--surface-action);text-decoration-line:underline;text-decoration-color:var(--link-underline);text-decoration-thickness:2px;text-underline-offset:.18em;text-decoration-skip-ink:auto;box-decoration-break:clone;-webkit-box-decoration-break:clone;overflow-wrap:anywhere}
-.answer-detail a:visited{text-decoration-color:var(--link-visited)}
-.answer-detail a:hover{background-color:var(--surface-note);text-decoration-thickness:3px}
-.answer-detail a:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
-.answer-detail a:active{background-color:var(--accent)}
+:is(.answer-detail, .answer-wrap .wp-block-post-content, .post-type-post .is-root-container) a:where(:any-link:not(.wp-element-button, .wp-block-button__link, .wp-block-file__button)){
+  color:var(--fg);
+  background-color:var(--surface-action);
+  text-decoration-line:underline;
+  text-decoration-color:var(--link-underline);
+  text-decoration-thickness:2px;
+  text-underline-offset:.18em;
+  text-decoration-skip-ink:auto;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+  overflow-wrap:anywhere;
+}
+:is(.answer-detail, .answer-wrap .wp-block-post-content, .post-type-post .is-root-container) a:where(:any-link:not(.wp-element-button, .wp-block-button__link, .wp-block-file__button)):visited{text-decoration-color:var(--link-visited)}
+:is(.answer-detail, .answer-wrap .wp-block-post-content, .post-type-post .is-root-container) a:where(:any-link:not(.wp-element-button, .wp-block-button__link, .wp-block-file__button)):hover{background-color:var(--surface-note);text-decoration-thickness:3px}
+:is(.answer-detail, .answer-wrap .wp-block-post-content, .post-type-post .is-root-container) a:where(:any-link:not(.wp-element-button, .wp-block-button__link, .wp-block-file__button)):focus-visible{outline:3px solid var(--fg);outline-offset:3px}
+:is(.answer-detail, .answer-wrap .wp-block-post-content, .post-type-post .is-root-container) a:where(:any-link:not(.wp-element-button, .wp-block-button__link, .wp-block-file__button)):active{background-color:var(--accent)}
 .answer-next{border-top:var(--line);padding-top:var(--space-4);gap:var(--space-3)}
 .answer-next a{max-width:100%}
 .answer-next .read-link{padding:var(--space-1);border-radius:var(--radius-control);text-underline-offset:.3em}
@@ -92,8 +117,6 @@ a{color:inherit;text-underline-offset:.25em}button,a{-webkit-tap-highlight-color
 .home-main .hero-copy,.home-main .poster-area{min-width:0}
 .home-main .hero-copy h1{line-height:1.08;overflow-wrap:break-word}
 .home-main .hero-copy p{font-size:1.125rem;line-height:1.6;color:var(--fg)}
-.home-main .poster-top,.home-main .poster-bottom{flex-wrap:wrap;gap:var(--space-2)}
-.home-main .poster-question{overflow-wrap:break-word}
 .home-main .question-section{padding-top:var(--space-5)}
 .home-main .question-card h3{line-height:1.2;overflow-wrap:break-word}
 .home-main .question-card .read-link{width:100%;justify-content:space-between;padding:var(--space-1);border-radius:var(--radius-control);text-underline-offset:.3em}
@@ -128,8 +151,16 @@ a{color:inherit;text-underline-offset:.25em}button,a{-webkit-tap-highlight-color
   .home-header .navigation .collective-nav{display:flex}
   .home-header .navigation .nav-pill{grid-column:1/-1}
   .home-main .hero-layout{grid-template-columns:minmax(0,1fr);padding-block:var(--space-4) var(--space-5)}
+  .home-main .hero-copy h1{font-size:2.375rem}
+  .home-main .section-heading h2,.home-main .how-layout h2,.home-main .collective h2{font-size:1.5rem}
+  .home-main .question-card h3{font-size:1.375rem}
+  .home-main .hero-copy p,.home-main .collective p{font-size:1.0625rem;line-height:1.6}
   .home-main .hero-copy .wp-element-button{width:100%;max-width:100%}
-  .home-main .poster{transform:rotate(2deg)}
+  .poster-area{padding:10px 16px}
+  .poster{max-width:370px;margin-inline:auto;padding:1.25rem 1.25rem var(--space-2);gap:.75rem;transform:rotate(2deg)}
+  .poster-question{font-size:clamp(1.375rem,1rem + 2vw,1.625rem)}
+  .poster-choices{font-size:.8125rem;letter-spacing:.01em}
+  .poster-bottom .poster-qr{width:48px}
   .home-main .question-section{padding-top:var(--space-4)}
   .home-main .question-card-link{padding:1.25rem;gap:var(--space-2)}
   .home-main .steps{grid-template-columns:minmax(0,1fr)}
@@ -341,8 +372,6 @@ body:has(.contact-page) .site-footer .footer-brand::after{content:'';position:ab
 .wp-site-blocks { padding: 0; }
 .wp-block-group, .wp-block-post-content { min-width: 0; }
 .navigation p { margin: 0; }
-.poster-top strong { font: 800 1.375rem var(--font-display); }
-.poster-bottom p { max-width: 20ch; }
 .home-main .wp-block-post-template.questions-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-3); padding: 0; margin: 0; list-style: none; }
 .questions-grid > li { display: flex; min-width: 0; }
 .home-main .question-card { flex: 1; width: 100%; }
@@ -359,23 +388,30 @@ body:not(.error404) .footer-brand { display: inline-flex; align-items: center; m
 .wp-block-query-pagination-numbers { display: flex; gap: var(--space-2); align-items: center; }
 .kekidi-archive { padding-block: var(--space-5); }
 .kekidi-archive > h1 { margin-bottom: var(--space-4); }
-/* Les blocs ajoutés hors de la composition gardent la typographie de lecture. */
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) :is(p, ul, ol, blockquote):not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) {
-  font-family: var(--font-body); font-size: 1.125rem; line-height: 1.65; color: var(--fg); overflow-wrap: break-word;
+/* La typographie des articles couvre aussi les blocs éditoriaux des quiz et scrutins. */
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) :is(p, ul, ol, blockquote):not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) {
+  font-family: var(--font-body); font-size: var(--reading-size); line-height: var(--reading-line-height); color: var(--fg); overflow-wrap: break-word;
 }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) :is(h2, h3, h4, h5, h6):not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) {
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) :is(h2, h3, h4, h5, h6):not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) {
   font-family: var(--font-display); font-weight: 800; line-height: 1.12; letter-spacing: -.025em; margin-bottom: var(--space-2);
 }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) h2:not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { font-size: 1.5rem; }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) h3:not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { font-size: 1.25rem; }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) :is(h4, h5, h6):not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { font-size: 1.125rem; }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) :is(p, ul, ol, blockquote):not(:first-child):not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { margin-top: var(--space-2); }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) :is(h2, h3, h4, h5, h6):not(:first-child):not(:where(.answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { margin-top: var(--space-4); }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) .wp-block-group:not(:first-child):not(:where(.answer-panel, .answer-detail, .sources, .kekidi-quiz-editor, .answer-panel *, .sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { margin-top: var(--space-4); }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) :is(ul, ol):not(:where(.sources *, .kekidi-quiz *, .kekidi-quiz-editor *, .kekidi-vote-quiz *, .kekidi-scrutins-editor *)) { padding-left: 1.5em; }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) .wp-block-image { max-width: 100%; margin-block: var(--space-3); }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) .wp-block-image img { display: block; max-width: 100%; height: auto; }
-:is(.answer-wrap .wp-block-post-content, .editor-styles-wrapper:has(.answer-detail)) .wp-block-image figcaption { font: 400 .875rem/1.5 var(--font-body); color: var(--muted); margin-top: var(--space-1); }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) h2:not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { font-size: var(--reading-h2-size); }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) h3:not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { font-size: 1.25rem; }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) :is(h4, h5, h6):not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { font-size: 1.125rem; }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) :is(p, ul, ol, blockquote):not(:first-child):not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { margin-top: var(--space-2); }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) :is(h2, h3, h4, h5, h6):not(:first-child):not(:where(.answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { margin-top: var(--space-4); }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) .wp-block-group:not(:first-child):not(:where(.answer-panel, .answer-detail, .sources, .kekidi-quiz-editor, .answer-panel *, .sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { margin-top: var(--space-4); }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) :is(ul, ol):not(:where(.sources *, :is(.kekidi-quiz, .kekidi-vote-quiz) :not(:where(.quiz-explanation-inner, .vote-explanation) *), :is(.kekidi-quiz-editor, .kekidi-scrutins-editor) :not(:is(.kekidi-quiz-editor, .kekidi-scrutins-editor) .block-editor-inner-blocks *))) { padding-inline-start: 1.5em; }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) .wp-block-image { max-width: 100%; margin-block: var(--space-3); }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) .wp-block-image img { display: block; max-width: 100%; height: auto; }
+:is(.answer-wrap .wp-block-post-content, .post-type-post .is-root-container) .wp-block-image figcaption { font: 400 .875rem/1.5 var(--font-body); color: var(--muted); margin-top: var(--space-1); }
+@media(max-width:600px){
+  :root,[data-theme=kekidi]{--reading-size:1.0625rem;--reading-line-height:1.55;--reading-h2-size:1.375rem}
+  .quiz-page .answer-question,.vote-page .answer-question{font-size:1.5rem}
+  .contact-intro h1,.contact-page .contact-success h2{font-size:1.75rem}
+  .answer-panel .short-answer{font-size:clamp(2.25rem,9.75vw,2.5rem)}
+  .vote-chart>h2,.quiz-result h2{font-size:var(--reading-h2-size)}
+}
 /* Les variables de la maquette suivent aussi les réglages Styles de WordPress. */
 body, .editor-styles-wrapper {
   --bg: oklch(from var(--wp--preset--color--cream) l c h); --surface: var(--wp--preset--color--white);

@@ -39,13 +39,17 @@ Les fichiers Nunito 800 et DM Sans 400/600 et leurs licences sont locaux. La pil
 ### Structure de page
 
 1. Marque et navigation vers les questions, le collectif et le fonctionnement.
-2. Hero : « Les questions sont dans la rue. Les réponses, ici. », introduction, bouton « Explorer les questions », affiche et légende.
+2. Hero : « Les questions sont dans la rue. Les réponses, ici. », introduction, bouton « Explorer les questions » et affiche.
 3. Section « Ça mérite une question. » avec cartes de réponses et de quiz.
 4. Bande menthe « De l’affiche au déclic. », trois étapes : question, scan, approfondissement.
 5. Collectif, texte explicatif et retour aux questions.
 6. Footer partagé et accès au contact.
 
 À partir de 801 px, hero en deux colonnes ; en dessous, pile verticale. Le hero ne conserve pas deux colonnes étroites entre 601 et 800 px. Les trois liens de navigation restent présents à 320 px. Les sections sont nommées pour la navigation par régions.
+
+À 600 px ou moins, l’accroche est à 38 px, les titres de section à 24 px et les titres des cartes à 22 px. L’introduction et le texte du collectif sont à 17 px avec un interligne de 1,6.
+
+L’affiche rose reprend un exemple de question avec cinq propositions lettrées. Le médaillon et la devise ouvrent l’affiche. Le pied regroupe la mention des réponses et des sources, le QR illustratif et la signature « Une initiative citoyenne ». Le contour encre, les coins peu arrondis et l’ombre décalée reprennent la maquette.
 
 ### Identité et navigation
 
@@ -77,9 +81,9 @@ Fonctionnement : trois numéros dans des cercles blancs de 38 px. Trois colonnes
 
 Colonne extérieure de 820 px maximum, gouttières incluses. Question H1 à 30ch maximum, panneau jaune de réponse courte, explication puis sources éventuelles. Réponse courte dominante visuellement, mais balisée comme paragraphe ; jamais de deuxième H1. Padding du panneau `clamp(24px,5vw,48px)`. Autoriser sa hauteur à suivre le texte et sa légère inclinaison existante.
 
-Le texte éditorial utilise DM Sans 18 px / 1,65. H2 Nunito 800 à 24 px, H3 20 px, titres suivants 18 px. Paragraphes espacés de 16 px ; nouvelles rubriques de 32 px ; images proportionnelles dans la colonne et légendes de 14 px. Ces règles couvrent aussi les blocs ajoutés hors des compositions, en lecture et dans l’éditeur. Exclure les panneaux, sources et interfaces de quiz de cette règle générale quand ils possèdent leur propre échelle.
+Le texte éditorial utilise DM Sans 18 px / 1,65. H2 Nunito 800 à 24 px, H3 20 px, titres suivants 18 px. À 600 px ou moins, le texte passe à 17 px / 1,55 et les H2 à 22 px. Les titres du résultat et du graphique sont également à 22 px. Paragraphes espacés de 16 px, nouvelles rubriques de 32 px et retrait de 1,5 em par niveau de liste. Les images suivent la largeur de la colonne et leurs légendes sont à 14 px. Ces règles couvrent les blocs ajoutés hors des compositions et les explications des quiz et scrutins, en lecture et dans l’éditeur. Les panneaux, les blocs de sources dédiés et les commandes des quiz ont leur propre échelle.
 
-Les sources utilisent des libellés précis, jamais une URL brute comme unique indication. Elles apparaissent seulement si renseignées. Liens externes documentaires : nouvel onglet, `noopener noreferrer`, indication de destination accessible. Les URLs longues peuvent revenir à la ligne. Les liens éditoriaux utilisent menthe/jaune/rose pour repos/survol/activation et une distinction après visite.
+Les sources utilisent des libellés précis, jamais une URL brute comme unique indication. Elles apparaissent seulement si renseignées. Liens externes documentaires : nouvel onglet, `noopener noreferrer`, indication de destination accessible. Les URLs longues peuvent revenir à la ligne. Le style des liens éditoriaux s’applique à tous les blocs de l’article, dans Gutenberg et sur la page publique. Le fond est menthe au repos, jaune au survol et rose à l’activation. Le soulignement est distinct après visite. Les blocs Bouton et les boutons de téléchargement gardent leur style.
 
 Sur une réponse classique, retour menthe à gauche et suite à droite sur ordinateur ; pile et retour pleine largeur sur mobile. Dans un quiz avant correction, retour secondaire et navigation compacte ; après validation, retour au bouton habituel. La dernière réponse mène à la première ; une réponse unique n’a pas de suivante.
 
@@ -108,7 +112,7 @@ Le graphique est trié par pourcentage décroissant dans le sens demandé. Chaqu
 
 Les largeurs utilisent les valeurs exactes ; les libellés s’arrondissent à une décimale, avec une somme affichée pouvant différer de 100 %. Majorité strictement supérieure à 50 %. Absents et non-votants exclus du dénominateur ; non-inscrits inclus dans les totaux mais pas dans les options. « Choix incorrect » et « Groupe oublié » expliquent les différences avec la sélection.
 
-WordPress autorise de valider sans sélection : c’est juste seulement si aucun groupe n’a de majorité dans le sens demandé. Résultat enregistré comme booléen local ; formulaire vierge au rechargement. Le formulaire disparaît après correction, puis focus sur le résultat. Même effet de confettis que le quiz classique, uniquement pour une réussite complète.
+WordPress autorise de valider sans sélection si des groupes sont proposés. C’est juste si aucun groupe proposé n’a de majorité dans le sens demandé. Le diagramme conserve aussi les groupes retirés des choix. Sans choix proposé, le bouton affiche directement le diagramme et place le focus sur son titre. Sinon, le formulaire disparaît après correction et le focus passe au résultat. Résultat enregistré comme booléen local, formulaire vierge au rechargement et confettis uniquement pour une réussite complète.
 
 L’explication se compose de blocs Gutenberg éditables. Source et méthode sont proposées comme contenu initial ; après personnalisation, ne pas réinjecter de paragraphes calculés. Un nouvel import ne remplace pas le texte éditorial ni ne publie le brouillon. Logos dans `wordpress/kekidi-scrutins/assets/logos/`, provenance dans son `SOURCES.md` ; sigle de repli si un logo ne charge pas.
 

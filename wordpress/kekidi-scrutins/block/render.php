@@ -31,6 +31,13 @@ if ( 'assemblee' === $snapshot['chamber'] ) {
 		}
 	);
 }
+$excluded_group_ids = $attributes['excludedGroupIds'] ?? array();
+$quiz_groups        = array_filter(
+	$groups,
+	static function ( array $group ) use ( $excluded_group_ids ): bool {
+		return ! in_array( $group['id'], $excluded_group_ids, true );
+	}
+);
 $expected = kekidi_scrutins_expected( $snapshot['groups'], $direction );
 $chamber  = 'senat' === $snapshot['chamber'] ? 'Sénat' : 'Assemblée nationale';
 $date     = wp_date( 'j F Y', strtotime( $snapshot['date'] . 'T12:00:00+00:00' ), new DateTimeZone( 'Europe/Paris' ) );
@@ -54,6 +61,7 @@ $majority_names = array_column(
 	'name'
 );
 $summary        = $majority_names ? implode( ', ', $majority_names ) . ( count( $majority_names ) > 1 ? ' ont voté' : ' a voté' ) . ' majoritairement ' . $direction . '.' : 'Aucun groupe n’a voté majoritairement ' . $direction . '.';
+$chart_title    = trim( $attributes['chartTitle'] ?? '' );
 $vote_totals    = $snapshot['totals'];
 $non_inscrits   = array_values(
 	array_filter(
@@ -74,10 +82,11 @@ while ( $links->next_tag( 'A' ) ) {
 	<p class="vote-context"><?php echo esc_html( $chamber . ' · ' . $date ); ?></p>
 	<p class="vote-measure"><?php echo esc_html( $attributes['measure'] ?? '' ); ?></p>
 	<form class="quiz-form vote-form" data-vote-form>
+		<?php if ( $quiz_groups ) : ?>
 		<fieldset aria-label="<?php echo esc_attr( 'Groupes parlementaires ayant voté majoritairement ' . $direction ); ?>">
-			<legend class="vote-legend"><?php echo esc_html( 'Quels groupes ont voté majoritairement ' . $direction . ' ?' ); ?></legend>
+			<legend class="vote-legend"><?php echo esc_html( ( count( $quiz_groups ) === count( $groups ) ? 'Quels groupes' : 'Parmi ces groupes, lesquels' ) . ' ont voté majoritairement ' . $direction . ' ?' ); ?></legend>
 			<div class="quiz-options vote-options">
-				<?php foreach ( $groups as $group ) : ?>
+				<?php foreach ( $quiz_groups as $group ) : ?>
 					<label class="quiz-option vote-option">
 						<span class="vote-party-name"><?php echo esc_html( $group['name'] ); ?></span>
 						<?php echo kekidi_scrutins_logo_html( $group, $logos ); ?>
@@ -86,14 +95,17 @@ while ( $links->next_tag( 'A' ) ) {
 				<?php endforeach; ?>
 			</div>
 		</fieldset>
+		<?php endif; ?>
 		<div class="vote-validation">
-			<p class="vote-selection-count" role="status" aria-live="polite">Aucun groupe sélectionné</p>
-			<button class="wp-element-button" type="submit" data-validate-vote aria-controls="<?php echo esc_attr( $uid . 'result ' . $uid . 'chart' ); ?>">Valider mes réponses</button>
+			<?php if ( $quiz_groups ) : ?>
+				<p class="vote-selection-count" role="status" aria-live="polite">Aucun groupe sélectionné</p>
+			<?php endif; ?>
+			<button class="wp-element-button" type="submit" data-validate-vote aria-controls="<?php echo esc_attr( $quiz_groups ? $uid . 'result ' . $uid . 'chart' : $uid . 'chart' ); ?>"><?php echo esc_html( $quiz_groups ? 'Valider mes réponses' : 'Voir les résultats du scrutin' ); ?></button>
 		</div>
 	</form>
 	<section class="quiz-result vote-result" id="<?php echo esc_attr( $uid . 'result' ); ?>" tabindex="-1" role="status" aria-live="polite" hidden><h2></h2><p></p></section>
 	<section class="vote-chart" id="<?php echo esc_attr( $uid . 'chart' ); ?>" aria-labelledby="<?php echo esc_attr( $uid . 'chart-title' ); ?>" hidden>
-		<h2 id="<?php echo esc_attr( $uid . 'chart-title' ); ?>">Et dans l’hémicycle ?</h2>
+		<h2 id="<?php echo esc_attr( $uid . 'chart-title' ); ?>" tabindex="-1"><?php echo esc_html( '' === $chart_title ? 'Et dans l’hémicycle ?' : $chart_title ); ?></h2>
 		<div class="vote-key" aria-label="Légende"><span><i class="vote-segment-0"></i>Pour</span><span><i class="vote-segment-1"></i>Contre</span><span><i class="vote-segment-2"></i>Abstention</span></div>
 		<ol class="vote-chart-list">
 			<?php
@@ -117,7 +129,7 @@ while ( $links->next_tag( 'A' ) ) {
 		</ol>
 		<section class="answer-detail vote-explanation">
 			<?php if ( empty( $attributes['editableExplanation'] ) ) : ?>
-			<h2>On vous explique.</h2>
+			<h2>Explication et sources</h2>
 			<p><?php echo esc_html( $summary . ' Résultat du scrutin : ' . $vote_totals['pour'] . ' votes pour, ' . $vote_totals['contre'] . ' contre et ' . $vote_totals['abstention'] . ' abstentions.' ); ?></p>
 			<?php endif; ?>
 			<div class="vote-editorial"><?php echo $links->get_updated_html(); ?></div>

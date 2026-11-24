@@ -109,13 +109,15 @@ Nunito 800 pour marque, titres et réponse courte. DM Sans 400 pour la lecture ;
 | Rôle effectif | Taille et interligne |
 | --- | --- |
 | H1 accueil, >600 px | `clamp(2.75rem,5.5vw,5rem)` / 1,08 |
-| H1 accueil, ≤600 px | `clamp(2.6rem,10.5vw,3.7rem)` / 1,08 |
-| Sections accueil | 32 px ; 28 px sur mobile / 1,12 |
-| Question de carte | 26 px ; 24 px sur mobile / 1,2 |
+| H1 accueil, ≤600 px | 38 px / 1,08 |
+| Sections accueil | 32 px, 24 px sur mobile / 1,12 |
+| Question de carte | 26 px, 22 px sur mobile / 1,2 |
 | Question de réponse | `clamp(1.5rem,3.2vw,2rem)` ; 24 px sur mobile / 1,25 |
-| Réponse courte | `clamp(2.5rem,6.5vw,4.5rem)` ; mobile `clamp(2.5rem,11vw,3.5rem)` / 1,12 |
-| Lecture d’article | 18 px / 1,65 ; H2 24 px, H3 20 px, H4–H6 18 px |
-| Introduction et collectif | 18 px / 1,6 |
+| Réponse courte | `clamp(2.5rem,6.5vw,4.5rem)`, sur mobile `clamp(2.25rem,9.75vw,2.5rem)` / 1,12 |
+| Lecture d’article | 18 px / 1,65, sur mobile 17 px / 1,55. H2 24 px (22 px sur mobile), H3 20 px, H4–H6 18 px |
+| Introduction de l’accueil et collectif | 18 px, 17 px sur mobile / 1,6 |
+| Titres de résultat et du graphique sur mobile | 22 px |
+| Titre du contact et de la confirmation sur mobile | 28 px |
 | Options des quiz | 16 px ; contexte de scrutin 14 px ; valeurs 13 px |
 | Boutons | 15 px / 1,4, graisse 600, espacement `.02em` |
 | Badges et légendes | Respectivement 12 px et 13 px |
@@ -135,7 +137,7 @@ Nunito 800 pour marque, titres et réponse courte. DM Sans 400 pour la lecture ;
 
 Conteneurs en `border-box`, padding compris. Réponses, contact et scrutins : maximum 820 px. Adaptation du padding des choix de quiz à 768 px, distincte du breakpoint de grille à 800 px.
 
-L’accueil enchaîne en-tête, accroche et affiche, cartes, fonctionnement, collectif, pied de page. Une réponse classique commence par sa question puis sa réponse courte, sans introduction intercalée. Ne pas masquer un défaut de grille avec `overflow-x:hidden`.
+L’accueil enchaîne en-tête, accroche et affiche, cartes, fonctionnement, collectif, pied de page. L’affiche rose légèrement inclinée reprend une question, cinq propositions lettrées et un pied avec QR illustratif et signature. Une réponse classique commence par sa question puis sa réponse courte, sans introduction intercalée. Ne pas masquer un défaut de grille avec `overflow-x:hidden`.
 
 ## Elevation & Depth
 
@@ -159,7 +161,7 @@ Une carte contient catégorie, question et action « Lire la réponse » ou « R
 
 ### Réponse et sources
 
-Question H1, panneau jaune, explication, sources éventuelles, navigation. Aucun panneau vide ni source inventée. Liens éditoriaux sur fond menthe, jaunes au survol, roses à l’activation ; soulignement distinct après visite. Les sources externes ouvrent un nouvel onglet avec `noopener noreferrer`.
+Question H1, panneau jaune, explication, sources éventuelles, navigation. Aucun panneau vide ni source inventée. Dans tout le contenu de l’article, y compris dans Gutenberg, les liens éditoriaux ont un fond menthe, jaune au survol et rose à l’activation. Le soulignement est distinct après visite. Les boutons conservent leur style. Les sources externes ouvrent un nouvel onglet avec `noopener noreferrer`.
 
 Sur mobile, retour classique pleine largeur puis question suivante. Sur les quiz avant correction, retour secondaire à gauche et suite regroupée à droite avec flèche, écart 8 px. Navigation cyclique ; lien suivant absent si un seul article existe.
 
@@ -175,7 +177,7 @@ WordPress enregistre seulement le dernier booléen juste/faux dans le navigateur
 
 Contexte, mesure à reconnaître, groupes, compteur, validation rose. Nom, emblème local de 40 px et case à droite de chaque option. Après validation : résultat menthe ou rose, graphique, explication. Pourcentages à une décimale, chiffres tabulaires à 13 px ; effectifs accessibles par une divulgation native.
 
-Majorité strictement supérieure à 50 % des pour + contre + abstentions ; absents et non-votants exclus. Sens demandé pour ou contre. WordPress autorise une sélection vide, juste seulement si aucun groupe n’atteint le seuil. Non-inscrits dans les totaux sans devenir une option. Graphique trié par pourcentage dans le sens demandé, avec libellés explicites.
+Majorité strictement supérieure à 50 % des pour + contre + abstentions ; absents et non-votants exclus. Sens demandé pour ou contre. Une sélection vide est juste si aucun groupe proposé n’atteint le seuil. Dans Gutenberg, chaque groupe est proposé par défaut. Le diagramme conserve tous les groupes, même ceux retirés des choix. Quand aucun groupe n’est proposé, le bouton affiche directement le diagramme. Non-inscrits dans les totaux sans devenir une option. Graphique trié par pourcentage dans le sens demandé, avec libellés explicites.
 
 Explication en blocs Gutenberg modifiables : titre, paragraphes, source et méthode. Après personnalisation, ne pas réinjecter de paragraphes automatiques. Logos locaux, repli vers le sigle ; provenance dans [SOURCES.md](wordpress/kekidi-scrutins/assets/logos/SOURCES.md).
 

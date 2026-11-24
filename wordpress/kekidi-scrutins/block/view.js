@@ -7,6 +7,7 @@
     const chart = root.querySelector('.vote-chart');
     let submitted = false;
     const updateSelection = () => {
+      if (!counter) return;
       const count = inputs.filter(input => input.checked).length;
       counter.textContent = count ? `${count} groupe${count > 1 ? 's' : ''} sélectionné${count > 1 ? 's' : ''}` : 'Aucun groupe sélectionné';
       inputs.forEach(input => input.closest('label').classList.toggle('is-selected', input.checked));
@@ -16,12 +17,19 @@
       event.preventDefault();
       if (submitted) return;
       submitted = true;
+      if (!inputs.length) {
+        form.hidden = true;
+        chart.hidden = false;
+        chart.querySelector('h2').focus();
+        return;
+      }
       const errors = inputs.filter(input => input.checked !== (input.dataset.correct === 'true')).length;
       result.dataset.state = errors ? 'wrong' : 'correct';
       result.querySelector('h2').textContent = errors ? 'Pas tout à fait !' : 'Bien joué !';
       result.querySelector('p').textContent = errors ? `${errors} erreur${errors > 1 ? 's' : ''}. Voici comment les groupes ont réellement voté.` : 'Vous avez tout juste !';
       root.querySelectorAll('[data-chart-party]').forEach(row => {
         const input = inputs.find(item => item.value === row.dataset.chartParty);
+        if (!input) return;
         const expected = input.dataset.correct === 'true';
         row.querySelector('[data-comparison]').textContent = input.checked && !expected ? 'Choix incorrect' : !input.checked && expected ? 'Groupe oublié' : '';
       });

@@ -40,18 +40,11 @@ jobs:
       - name: Générer et contrôler les cinq archives
         run: |
           cd "$RUNNER_TEMP/wordpress"
-          # Le Composer embarqué dans WP-CLI peut rejeter le jeton du runner.
-          env -u COMPOSER_AUTH COMPOSER_HOME="$(mktemp -d)" wp package install wp-cli/dist-archive-command:3.1.0
-          mkdir -p "$GITHUB_WORKSPACE/dist"
-          theme_version=$(awk '/^Version: / {print $2; exit}' "$GITHUB_WORKSPACE/wordpress/kekidi/style.css")
-          wp dist-archive "$GITHUB_WORKSPACE/wordpress/kekidi" "$GITHUB_WORKSPACE/dist/kekidi-$theme_version.zip"
-          for slug in contact quiz scrutins super-editeur; do
-            component="kekidi-$slug"
-            source="$GITHUB_WORKSPACE/wordpress/$component"
-            version=$(awk '/^ \* Version: / {print $3; exit}' "$source/$component.php")
-            wp dist-archive "$source" "$GITHUB_WORKSPACE/dist/$component-$version.zip"
-          done
-          wp eval-file "$GITHUB_WORKSPACE/wordpress/tests/distribution.php"
+          export WP_CLI_PACKAGES_DIR="$(mktemp -d)"
+          # Utiliser Packagist avec le Composer du runner et le WP-CLI déjà installé.
+          printf '%s\n' '{"require":{"wp-cli/dist-archive-command":"3.1.0"},"replace":{"wp-cli/wp-cli":"2.12.0"}}' > "$WP_CLI_PACKAGES_DIR/composer.json"
+          composer --working-dir="$WP_CLI_PACKAGES_DIR" install --no-interaction --prefer-dist
+          wp eval-file "$GITHUB_WORKSPACE/scripts/build-zips.php"
       - name: Installer les livrables et vérifier les extensions
         run: |
           cd "$RUNNER_TEMP/wordpress"

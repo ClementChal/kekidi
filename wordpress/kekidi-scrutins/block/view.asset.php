@@ -7,5 +7,5 @@
 
 return array(
 	'dependencies' => array( 'kekidi-scrutins-confetti' ),
-	'version'      => '1.0.0',
+	'version'      => '1.0.3',
 );

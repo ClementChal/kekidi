@@ -42,7 +42,7 @@ studio wp eval-file "$repo/wordpress/kekidi-scrutins/tests/data.php" --path "$de
 
 ## Construire et tester les ZIP
 
-Augmente la version du composant modifié. Lance les commandes sur **Kekidi Recette ZIP**, séparé du site lié. Exemple pour le thème, en adaptant `VERSION` :
+Augmente la version du composant modifié. Lance les commandes sur **Kekidi Recette ZIP**, séparé du site lié. Pour l’installation du thème, remplace `VERSION` par la version à tester :
 
 ```sh
 repo="$PWD"
@@ -51,12 +51,11 @@ version=VERSION
 
 studio start --path "$recette" --skip-browser --skip-log-details
 studio wp package install wp-cli/dist-archive-command:3.1.0 --path "$recette"  # Une seule fois
-studio wp dist-archive "$repo/wordpress/kekidi" "$repo/dist/kekidi-$version.zip" --create-target-dir --path "$recette"
-studio wp eval-file "$repo/wordpress/tests/distribution.php" --path "$recette"
+studio wp eval-file "$repo/scripts/build-zips.php" --path "$recette"
 studio wp theme install "$repo/dist/kekidi-$version.zip" --force --activate --path "$recette"
 studio stop --path "$recette"
 ```
 
-Le contrôle de distribution attend les cinq ZIP. Pour une extension, utilise `studio wp plugin install CHEMIN_DU_ZIP --force --activate --path "$recette"`. Installe Forminator avant Kekidi Contact. Préserve les ZIP déjà publiés.
+La commande valide les cinq ZIP et range leurs versions antérieures dans `dist/backup/`. Pour une extension, utilise `studio wp plugin install CHEMIN_DU_ZIP --force --activate --path "$recette"`. Installe Forminator avant Kekidi Contact.
 
 [Commandes pour les cinq archives](../README.md#produire-une-livraison) · [Installation vierge](INSTALLATION-VIERGE.md)

@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 const siteUrl = (process.env.KEKIDI_SITE_URL ?? 'http://localhost:8881').replace(/\/$/, '');
 const cdpUrl = (process.env.KEKIDI_CDP_URL ?? 'http://127.0.0.1:9223').replace(/\/$/, '');
 const postId = Number(process.env.KEKIDI_ARTICLE_POST_ID ?? 1001);
+const quizPath = process.env.KEKIDI_QUIZ_PATH ?? '/reponses/quiz-demonstration/';
+const scrutinPath = process.env.KEKIDI_SCRUTIN_PATH ?? '/reponses/scrutin-7987-pour/';
 assert(Number.isSafeInteger(postId) && postId > 0, 'Identifiant d’article invalide');
 const pages = await (await fetch(cdpUrl + '/json')).json();
 const page = pages.find(item => item.type === 'page');
@@ -39,21 +41,46 @@ const metrics = `(() => {
 })()`;
 try {
  await send('Page.enable');await send('Network.enable');await send('Network.setCacheDisabled',{cacheDisabled:true});
- for(const width of [1440,390,320]){
+ for(const width of [1440,601,600,390,320]){
   await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:width<600});
   await send('Page.navigate',{url:siteUrl + '/reponses/espace-public/'});await wait(1000);
   await evaluate(inject);await wait(150);
   const m=await evaluate(metrics);
   assert.deepEqual(m.newHeading,m.heading);assert.deepEqual(m.nestedHeading,m.heading);
   assert.deepEqual(m.newParagraph,m.paragraph);assert.deepEqual(m.nestedParagraph,m.paragraph);
-  assert.equal(m.heading.size,'24px');assert.equal(m.paragraph.size,'18px');assert.equal(m.paragraph.line,'29.7px');
-  assert.equal(m.sources.size,'15px');assert.equal(m.sourceTitle.size,'20px');assert.notEqual(m.shortAnswer.size,'18px');
+  const mobile=width<=600;
+  assert.equal(m.heading.size,mobile?'22px':'24px');
+  assert.equal(m.paragraph.size,mobile?'17px':'18px');
+  assert.equal(m.paragraph.line,mobile?'26.35px':'29.7px');
+  assert.equal(m.sources.size,'15px');assert.equal(m.sourceTitle.size,'20px');assert.notEqual(m.shortAnswer.size,m.paragraph.size);
   assert.equal(m.paragraphGap,'16px');assert(m.imageReady);assert(m.image.width<=m.contentWidth);assert(!m.overflow);
   assert.equal(await evaluate('getComputedStyle(document.querySelector("#nested-heading").parentElement).marginTop'),'32px');
   console.log(`Article ${width}px : titres, textes, groupes, images et styles réservés vérifiés.`);
  }
- await send('Page.navigate',{url:siteUrl + '/reponses/missions-police/'});await wait(900);
- assert.equal(await evaluate(`getComputedStyle(document.querySelector('.quiz-instructions')).fontSize`),'14px');
+ for (const [path, explanation, control] of [
+  [quizPath, '.quiz-explanation-inner', '.quiz-instructions'],
+  [scrutinPath, '.vote-editorial', '.vote-chart-list'],
+ ]) {
+  await send('Page.navigate',{url:siteUrl + path});await wait(1000);
+  const typography = await evaluate(`(() => {
+   const doc = document;
+   const parent = doc.querySelector(${JSON.stringify(explanation)});
+   const group = doc.createElement('section');
+   group.className = 'answer-detail is-layout-flow';
+   group.innerHTML = '<h2>Explication et sources</h2><p>Introduction</p><h3>Précisions</h3><p>Un paragraphe</p><ol><li>Point<ul><li>Sous-point</li></ul></li></ol>';
+   parent.append(group);
+   const [h2, , h3, paragraph, list] = [...group.children].map(element => getComputedStyle(element));
+   const nested = getComputedStyle(group.querySelector('ul'));
+   return {h2:h2.fontSize,h3:h3.fontSize,headingGap:h3.marginTop,paragraphGap:paragraph.marginTop,
+    listIndent:parseFloat(list.paddingInlineStart),nestedIndent:parseFloat(nested.paddingInlineStart),
+    control:getComputedStyle(doc.querySelector(${JSON.stringify(control)})).fontSize};
+  })()`);
+  assert.equal(typography.h2,'22px',path);assert.equal(typography.h3,'20px',path);
+  assert.equal(typography.headingGap,'32px',path);assert.equal(typography.paragraphGap,'16px',path);
+  assert(typography.listIndent>0 && typography.nestedIndent>0,path);
+  assert.notEqual(typography.control,'18px',path);
+ }
+ console.log('Quiz et scrutin : titres, espacements et retraits vérifiés dans les explications.');
  await send('Page.navigate',{url:siteUrl + '/studio-auto-login?redirect_to=%2Fwp-admin%2Fpost.php%3Fpost%3D' + postId + '%26action%3Dedit'});await wait(3000);
  const editor=await evaluate(`(() => {
   const frame=document.querySelector('iframe[name="editor-canvas"]');const doc=frame?.contentDocument||document;

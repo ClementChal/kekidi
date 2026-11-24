@@ -2,6 +2,7 @@
 /** Vérifie les sources et les ZIP versionnés via WP-CLI eval-file. */
 
 $root = dirname( __DIR__, 2 );
+$archive_directory = $args[0] ?? "$root/dist";
 $check = static function ( bool $condition, string $message ): void {
 	if ( ! $condition ) {
 		WP_CLI::error( $message );
@@ -90,7 +91,7 @@ foreach ( array( 'kekidi', 'kekidi-contact', 'kekidi-quiz', 'kekidi-scrutins', '
 	$main = 'kekidi' === $slug ? 'style.css' : "$slug.php";
 	$required = array( $main );
 	if ( 'kekidi' === $slug ) {
-		$required = array_merge( $required, array( 'functions.php', 'theme.json', 'templates/index.html', 'assets/daisyui.css', 'assets/kekidi-prefetch.js', 'assets/dm-sans-LICENSE.txt', 'assets/nunito-LICENSE.txt' ) );
+		$required = array_merge( $required, array( 'functions.php', 'theme.json', 'templates/index.html', 'assets/daisyui.css', 'assets/kekidi-prefetch.js', 'assets/affiche-qr-illustratif.svg', 'assets/dm-sans-LICENSE.txt', 'assets/nunito-LICENSE.txt' ) );
 		foreach ( $config['settings']['typography']['fontFamilies'] as $font ) {
 			foreach ( $font['fontFace'] as $face ) {
 				foreach ( $face['src'] as $src ) {
@@ -113,7 +114,7 @@ foreach ( array( 'kekidi', 'kekidi-contact', 'kekidi-quiz', 'kekidi-scrutins', '
 	}
 	$header = get_file_data( "$directory/$main", array( 'version' => 'Version' ) );
 	$check( 1 === preg_match( '/^\d+\.\d+\.\d+$/D', $header['version'] ), "Version invalide : $slug" );
-	$archive = "$root/dist/$slug-{$header['version']}.zip";
+	$archive = "$archive_directory/$slug-{$header['version']}.zip";
 	$check( is_file( $archive ), "Archive versionnée absente : $archive" );
 	$zip = new ZipArchive();
 	$check( true === $zip->open( $archive, ZipArchive::CHECKCONS ), "Archive invalide : $archive" );

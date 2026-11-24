@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Kekidi — Quiz
  * Description: Réponses quiz éditables dans Gutenberg, avec conservation du dernier résultat dans le navigateur.
- * Version: 1.1.1
+ * Version: 1.1.6
  * Requires at least: 6.6
  * Requires PHP: 7.4
  * License: GPL-2.0-or-later
@@ -54,7 +54,7 @@ add_action(
 		register_block_pattern(
 			'kekidi/reponse-quiz',
 			array(
-				'title'       => 'Nouvelle réponse quiz',
+				'title'       => 'Réponse quiz',
 				'description' => 'Propositions, bonnes réponses et explication à renseigner.',
 				'categories'  => array( 'kekidi' ),
 				'postTypes'   => array( 'post' ),

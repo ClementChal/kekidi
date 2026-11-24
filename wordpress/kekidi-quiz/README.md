@@ -1,6 +1,6 @@
 # Kekidi — Quiz
 
-Extension validée dans Studio. Installation publique : mettre à jour le thème Kekidi puis installer et activer `dist/kekidi-quiz-1.1.1.zip` via **Extensions → Ajouter une extension → Téléverser une extension**. Adapter le nom à la version livrée. Cette opération nécessite un compte administrateur ; la création des quiz est ensuite accessible aux éditeurs.
+Extension validée dans Studio. Installation publique : mettre à jour le thème Kekidi, puis installer et activer le ZIP de Kekidi Quiz via **Extensions → Ajouter une extension → Téléverser une extension**. Utiliser la version indiquée dans la [procédure de livraison](../../README.md#produire-une-livraison). Cette opération nécessite un compte administrateur. Les éditeurs peuvent ensuite créer les quiz.
 
 ## Tester dans Studio
 
@@ -14,9 +14,9 @@ Le contenu explicatif de l’exemple est provisoire. Seul le site local a été 
 ## Créer une réponse quiz
 
 1. **Articles → Ajouter un article** : saisir la question comme titre.
-2. Ajouter le bloc **Réponse quiz** (ou la composition **Nouvelle réponse quiz** dans Kekidi).
+2. Ajouter **Réponse quiz** depuis le menu des blocs ou depuis **Compositions → Kekidi**.
 3. Renseigner de 1 à 5 propositions et cocher les bonnes réponses. Les boutons permettent d’ajouter, déplacer ou supprimer une proposition.
-4. Rédiger l’explication dans les blocs sous **On vous explique.** Ajouter des sources si nécessaire.
+4. Rédiger l’explication dans le bloc Paragraphe sous **Explication et sources**. Le titre H2 est modifiable. Pour citer une source, insérer un lien dans le texte. Pour ajouter du contenu, utiliser le **+** en bas du quiz pour parcourir les blocs disponibles, ou taper `/` suivi du nom du bloc sur une ligne vide.
 5. Choisir une catégorie, prévisualiser puis publier.
 
 Une seule bonne réponse donne des boutons radio et « Une seule réponse possible. ». Plusieurs bonnes réponses donnent des cases et « Plusieurs réponses possibles. ». Un quiz incomplet peut être enregistré en brouillon ; sa publication est refusée.
@@ -44,4 +44,4 @@ Les essais sur téléphone physique et Safari restent à faire. Le parcours « M
 
 Sauvegarder fichiers et base avant mise à jour, et conserver les ZIP publiés dans les Releases. La création d’archives n’effectue aucune sauvegarde du site.
 
-Les styles du quiz se trouvent dans le thème ; le bloc et son comportement sont dans cette extension. Installer les deux archives : `dist/kekidi-1.4.0.zip` et `dist/kekidi-quiz-1.1.1.zip`, avec les versions livrées. Purger le cache après la mise à jour. Aucun import de contenu ou de base n’est nécessaire ; l’exemple Studio n’est pas inclus dans les archives.
+Les styles du quiz se trouvent dans le thème. Le bloc et son comportement sont dans cette extension. Installer les archives du thème et de Kekidi Quiz dans les versions livrées, puis purger le cache. Aucun import de contenu ou de base n’est nécessaire.
